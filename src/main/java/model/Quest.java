@@ -22,6 +22,7 @@ public class Quest {
     }
 
     public Quest(String line) {
+        // Pinaise
         Scanner scanner = new Scanner(line).useDelimiter("\\|");
         while (scanner.hasNext()) {
             this.id = scanner.nextInt();
