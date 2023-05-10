@@ -56,4 +56,8 @@ public class Quest {
     public String toString() {
         return this.id + " " + Arrays.toString(this.position) + " " + Arrays.toString(this.preconditions) + " " + this.duration + " " + this.experience + " " + this.title;
     }
+
+    public int getId() {
+        return this.id;
+    }
 }

@@ -12,8 +12,11 @@ public class Player {
     }
 
     private void efficace(){
+        int questId = scenario.getProvQuests().get(0).getId();
         for (Quest quest: scenario.getProvQuests()){
-//            if (quest.)
+            if (quest.noPrecond()){
+                // todo if questid == id faire l'action necessaire pour verif la distance la plus courte
+            }
         }
     }
 

@@ -14,6 +14,15 @@ public class Scenario {
         return provQuests;
     }
 
+    public Quest getQuest(int questId){
+        for (Quest quest :
+                provQuests) {
+            if (quest.getId() == questId){
+                return quest;
+            }
+        }
+    }
+
     public String toString() {
         return this.provQuests.size() + " " + this.provQuests.toString();
     }
