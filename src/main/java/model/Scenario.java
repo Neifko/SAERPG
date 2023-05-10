@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Scenario {
-    private ArrayList<Quest> provQuests;
+    private ArrayList<Quest> provQuests = new ArrayList<>();
 
     public void addQuest(Quest quest) {
         this.provQuests.add(quest);
