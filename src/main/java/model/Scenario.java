@@ -10,6 +10,10 @@ public class Scenario {
         this.provQuests.add(quest);
     }
 
+    public ArrayList<Quest> getProvQuests(){
+        return provQuests;
+    }
+
     public String toString() {
         return this.provQuests.size() + " " + this.provQuests.toString();
     }
