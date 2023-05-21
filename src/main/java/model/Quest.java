@@ -12,6 +12,10 @@ public class Quest {
     private int experience;
     private String title;
 
+    /**
+     * Vérifie si la quête n'a aucune précondition.
+     * @return boolean
+     */
     public boolean noPrecond() {
         for (int precond : this.preconditions) {
             if (precond != 0) {
@@ -21,6 +25,10 @@ public class Quest {
         return true;
     }
 
+    /**
+     * Constructeur de la classe Quest.
+     * @param line la chaîne de caractères contenant les informations de la quête
+     */
     public Quest(String line) {
         // Pinaise
         Scanner scanner = new Scanner(line).useDelimiter("\\|");
@@ -36,6 +44,12 @@ public class Quest {
         }
     }
 
+    /**
+     * Extrait les coordonnées ou les préconditions de la quête à partir d'une chaîne de caractères.
+     * @param string la chaîne de caractères contenant les informations
+     * @param tab le tableau dans lequel stocker les informations extraites
+     * @return int[] le tableau contenant les informations extraites
+     */
     private int[] extractStringToTab(String string, int[] tab) {
         string = string.replace("(", "");
         string = string.replace(")", "");
@@ -53,11 +67,35 @@ public class Quest {
         return tab;
     }
 
+    /**
+     * Renvoie une représentation sous forme de chaîne de caractères de la quête.
+     * @return String
+     */
     public String toString() {
         return this.id + " " + Arrays.toString(this.position) + " " + Arrays.toString(this.preconditions) + " " + this.duration + " " + this.experience + " " + this.title;
     }
 
-    public int getId() {
-        return this.id;
-    }
+    /**
+     * Renvoie l'identifiant de la quête.
+     * @return int
+     */
+    public int getId() {return this.id;}
+
+    /**
+     * Renvoie les coordonnées de la quête.
+     * @return int[]
+     */
+    public int[] getCoordinates() {return this.position;}
+
+    /**
+     * Renvoie l'expérience de la quête.
+     * @return int
+     */
+    public int getExperience() {return this.experience;}
+
+    /**
+     * Renvoie la durée de la quête.
+     * @return int
+     */
+    public int getDuration() {return this.duration;}
 }
