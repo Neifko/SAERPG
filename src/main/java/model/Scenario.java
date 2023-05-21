@@ -21,6 +21,7 @@ public class Scenario {
                 return quest;
             }
         }
+        return null;
     }
 
     public String toString() {
