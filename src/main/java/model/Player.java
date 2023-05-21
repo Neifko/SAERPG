@@ -15,6 +15,9 @@ public class Player {
         playerCoord = new int[]{0, 0};
     }
 
+    /**
+     * Solution efficace correspond au joueur qui realise toutes les quetes
+     */
     private void efficace() {
         int questId = scenario.getProvQuests().get(0).getId() == 0 ? scenario.getProvQuests().get(1).getId(): scenario.getProvQuests().get(0).getId();
         float distMin = 9999f;
@@ -39,7 +42,30 @@ public class Player {
      * Solution exhaustive correspond au joueur qui realise toutes les quetes
      */
     public void exhaustive() {
+        ArrayList <Quest> availableQuests = new ArrayList <> (scenario.getProvQuests());
+        ArrayList <Quest> completedQuests = new ArrayList <> ();
 
+        if (!availableQuests.isEmpty()) {
+            Quest closestQuest = availableQuests.get(0);
+            float distMin = calculDistance(closestQuest.getCoordinates());
+
+            for (Quest quest : availableQuests) {
+                float dist = calculDistance(quest.getCoordinates());
+                if (dist < distMin) {
+                    distMin = dist;
+                    closestQuest = quest;
+                }
+            }
+            playerCoord = closestQuest.getCoordinates();
+            xp += closestQuest.getExperience();
+            duration += closestQuest.getDuration();
+            completedQuests.add(closestQuest);
+            availableQuests.remove(closestQuest);
+        }
+        System.out.println("Quetes Completées : ");
+        for (Quest quest : completedQuests) {
+            System.out.println(quest);
+        }
     }
 
     /**
@@ -62,7 +88,7 @@ public class Player {
     }
 
 
-    public String toString() {
+    public String toString(){
         return "Player 0";
     }
 }

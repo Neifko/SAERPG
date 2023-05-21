@@ -98,4 +98,13 @@ public class Quest {
      * @return int
      */
     public int getDuration() {return this.duration;}
+
+    /**
+     * Vérifie si la quête est un boss.
+     * @return boolean
+     */
+    public boolean isBoss() {
+        return this.id == 0;
+    }
+
 }
