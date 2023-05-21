@@ -11,9 +11,6 @@ public class Player {
         playerCoord = new int[] {0, 0};
     }
 
-    /**
-     * Solution efficace correspond a un joueur qui fait les quetes les plus proches
-     */
     private void efficace(){
         int questId = scenario.getProvQuests().get(0).getId();
         for (Quest quest: scenario.getProvQuests()){
@@ -32,16 +29,24 @@ public class Player {
     }
 
     /**
-     * calcul Distance renvoie la distance entre les coordonnées du joueur et la quete quest
+     * calcule la distance entre les coordonnées du joueur et les coordonnées de la quete et la renvoie par la suite
      * @return float
+     * @param quest Quest
      */
     private float calculDistance(Quest quest){
-        return 0f;
+        int[] questCoord = quest.getCoordinates();
+        int[] playerCoord = this.playerCoord;
+
+        int diffCoordX = questCoord[0] - playerCoord[0];
+        int diffCoordY = questCoord[1] - playerCoord[1];
+
+        return (float) Math.sqrt(diffCoordX * diffCoordX + diffCoordY  * diffCoordY );
     }
 
     private void showState(){
 
     }
+
 
     public String toString(){
         return "Player 0";
