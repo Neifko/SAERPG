@@ -1,6 +1,7 @@
 package client;
 
 import iofile.ReadTextFile;
+import model.Player;
 import model.Quest;
 import model.Scenario;
 
@@ -12,6 +13,10 @@ public class ClientQuest {
 //        System.out.println(maquete);
 
         Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + "scenario_0.txt"));
-        System.out.println(scenario);
+//        System.out.println(scenario);
+
+//        Player monJoueur = new Player(scenario);
+//        int dist = monJoueur.calculDistance(new int[] {2,3});
+//        System.out.println(dist);
     }
 }

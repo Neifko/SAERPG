@@ -10,22 +10,24 @@ public class Player {
 
     private ArrayList<String> states;
 
-    public Player(Scenario parScenario){
+    public Player(Scenario parScenario) {
         scenario = parScenario;
-        playerCoord = new int[] {0, 0};
+        playerCoord = new int[]{0, 0};
     }
 
-    private void efficace(){
-        int questId = scenario.getProvQuests().get(0).getId();
+    private void efficace() {
+        int questId = scenario.getProvQuests().get(0).getId() == 0 ? scenario.getProvQuests().get(1).getId(): scenario.getProvQuests().get(0).getId();
         float distMin = 9999f;
         Quest closestQuest = null;
-        for (Quest quest: scenario.getProvQuests()){
-            if (quest.noPrecond()){
-                // todo if questid == id faire l'action necessaire pour verif la distance la plus courte
-                float dist = calculDistance(quest);
-                if (dist < distMin){
-                    distMin = dist;
-                    closestQuest = quest;
+        while (!scenario.getQuest(questId).isBoss()) {
+            for (Quest quest : scenario.getProvQuests()) {
+                if (quest.noPrecond()) {
+                    // todo : if questid == id faire l'action necessaire pour verif la distance la plus courte
+                    float dist = calculDistance(quest.getCoordinates());
+                    if (dist < distMin) {
+                        distMin = dist;
+                        closestQuest = quest;
+                    }
                 }
             }
         }
@@ -36,31 +38,31 @@ public class Player {
     /**
      * Solution exhaustive correspond au joueur qui realise toutes les quetes
      */
-    public void exhaustive(){
+    public void exhaustive() {
 
     }
 
     /**
      * calcule la distance entre les coordonnées du joueur et les coordonnées de la quete et la renvoie par la suite
+     *
+     * @param
      * @return float
-     * @param quest Quest
      */
-    private float calculDistance(Quest quest){
-        int[] questCoord = quest.getCoordinates();
+    private int calculDistance(int[] questCoord) {
         int[] playerCoord = this.playerCoord;
 
         int diffCoordX = questCoord[0] - playerCoord[0];
         int diffCoordY = questCoord[1] - playerCoord[1];
 
-        return (float) Math.sqrt(diffCoordX * diffCoordX + diffCoordY  * diffCoordY );
+        return diffCoordX + diffCoordY;
     }
 
-    private void showState(){
+    private void showState() {
 
     }
 
 
-    public String toString(){
+    public String toString() {
         return "Player 0";
     }
 }
