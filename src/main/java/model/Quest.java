@@ -113,4 +113,8 @@ public class Quest implements Comparable<Quest>{
         if (quest.getId() < this.id) return 1;
         return 0;
     }
+
+    public int[] getPreconditions() {
+        return this.preconditions;
+    }
 }
