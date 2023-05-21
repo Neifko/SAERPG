@@ -15,7 +15,8 @@ public class ClientQuest {
         Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + "scenario_0.txt"));
 //        System.out.println(scenario);
 
-//        Player monJoueur = new Player(scenario);
+        Player monJoueur = new Player(scenario);
+        monJoueur.exhaustive();
 //        int dist = monJoueur.calculDistance(new int[] {2,3});
 //        System.out.println(dist);
     }

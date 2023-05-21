@@ -6,6 +6,7 @@ import java.util.Comparator;
 
 public class Player {
     private Scenario scenario;
+    private ArrayList<Quest> todoQuests;
     private int[] playerCoord;
     private int xp;
     private int duration;
@@ -14,18 +15,22 @@ public class Player {
 
     public Player(Scenario parScenario) {
         scenario = parScenario;
+        todoQuests = new ArrayList<>();
+        for (Quest quest:scenario.getProvQuests()){
+            todoQuests.add(quest);
+        }
         playerCoord = new int[]{0, 0};
     }
 
     /**
-     * Solution efficace correspond au joueur qui realise toutes les quetes
+     * Solution efficace correspond au joueur qui realise les quetes les plus proches
      */
     private void efficace() {
-        int questId = scenario.getProvQuests().get(0).getId() == 0 ? scenario.getProvQuests().get(1).getId(): scenario.getProvQuests().get(0).getId();
+        int questId = todoQuests.get(0).getId() == 0 ? todoQuests.get(1).getId(): todoQuests.get(0).getId();
         float distMin = 9999f;
-        Quest closestQuest = null;
+        Quest closestQuest = todoQuests.get(0);
         while (!scenario.getQuest(questId).isBoss()) {
-            for (Quest quest : scenario.getProvQuests()) {
+            for (Quest quest : todoQuests) {
                 if (quest.noPrecond()) {
                     // todo : if questid == id faire l'action necessaire pour verif la distance la plus courte
                     float dist = calculDistance(quest.getCoordinates());
@@ -35,9 +40,20 @@ public class Player {
                     }
                 }
             }
-        }
+            // todo : move player to quest coordinates
+            move(closestQuest.getCoordinates());
+            doQuest(closestQuest);
+            todoQuests.remove(closestQuest);
 
-        // todo : move player to quest coordinates
+        }
+    }
+
+    private void doQuest(Quest quest){
+
+    }
+
+    private void move(int[] coord){
+        System.out.println("move");
     }
 
     /**

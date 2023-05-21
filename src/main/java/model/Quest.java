@@ -4,7 +4,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Quest {
+public class Quest implements Comparable<Quest>{
     private int id;
     private int[] position;
     private int[] preconditions;
@@ -107,4 +107,10 @@ public class Quest {
         return this.id == 0;
     }
 
+    @Override
+    public int compareTo(Quest quest) {
+        if (quest.getId() > this.id) return -1;
+        if (quest.getId() < this.id) return 1;
+        return 0;
+    }
 }
