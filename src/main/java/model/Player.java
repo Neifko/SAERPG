@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class Player {
     private Scenario scenario;
@@ -42,10 +44,10 @@ public class Player {
      * Solution exhaustive correspond au joueur qui realise toutes les quetes
      */
     public void exhaustive() {
-        ArrayList <Quest> availableQuests = new ArrayList <> (scenario.getProvQuests());
-        ArrayList <Quest> completedQuests = new ArrayList <> ();
+        ArrayList<Quest> availableQuests = new ArrayList<>(scenario.getProvQuests());
+        ArrayList<Quest> completedQuests = new ArrayList<>();
 
-        if (!availableQuests.isEmpty()) {
+        while (!availableQuests.isEmpty()) {
             Quest closestQuest = availableQuests.get(0);
             float distMin = calculDistance(closestQuest.getCoordinates());
 
@@ -56,17 +58,23 @@ public class Player {
                     closestQuest = quest;
                 }
             }
+
             playerCoord = closestQuest.getCoordinates();
             xp += closestQuest.getExperience();
             duration += closestQuest.getDuration();
             completedQuests.add(closestQuest);
             availableQuests.remove(closestQuest);
         }
-        System.out.println("Quetes Completées : ");
+
+        System.out.println("Quêtes Complétées (ordre des préconditions) :");
+        //*****************************************
+        completedQuests.sort(Comparator.comparingInt(q -> Arrays.hashCode(q.getPreconditions()))); ///****************************************************
+        //*****************************************
         for (Quest quest : completedQuests) {
             System.out.println(quest);
         }
     }
+
 
     /**
      * calcule la distance entre les coordonnées du joueur et les coordonnées de la quete et la renvoie par la suite
