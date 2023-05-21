@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class Player {
     private Scenario scenario;
     private int[] playerCoord;
+    private int xp;
+    private int duration;
+
+    private ArrayList<String> states;
 
     public Player(Scenario parScenario){
         scenario = parScenario;
@@ -13,12 +17,20 @@ public class Player {
 
     private void efficace(){
         int questId = scenario.getProvQuests().get(0).getId();
+        float distMin = 9999f;
+        Quest closestQuest = null;
         for (Quest quest: scenario.getProvQuests()){
             if (quest.noPrecond()){
                 // todo if questid == id faire l'action necessaire pour verif la distance la plus courte
-
+                float dist = calculDistance(quest);
+                if (dist < distMin){
+                    distMin = dist;
+                    closestQuest = quest;
+                }
             }
         }
+
+        // todo : move player to quest coordinates
     }
 
     /**
