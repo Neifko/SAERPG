@@ -1,7 +1,6 @@
 package model;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -101,6 +100,20 @@ public class Quest implements Comparable<Quest>{
     public int getDuration() {return this.duration;}
 
     /**
+     * Renvoie le titre de la quête.
+     * @return String
+     */
+    public String getTitle() {return this.title;}
+
+    /**
+     * Renvoie le le tableau des préconditions.
+     * @return int[]
+     */
+    public int[] getPreconditions() {
+        return this.preconditions;
+    }
+
+    /**
      * Vérifie si la quête est un boss.
      * @return boolean
      */
@@ -108,15 +121,16 @@ public class Quest implements Comparable<Quest>{
         return this.id == 0;
     }
 
+    /**
+     * Compare 2 quêtes (dont une reçue en paramètre).
+     * @return int
+     * @param quest Quest
+     */
     @Override
     public int compareTo(Quest quest) {
 //        if (quest.getId() > this.id) return -1;
 //        if (quest.getId() < this.id) return 1;
         return Integer.compare(quest.getId(), this.id);
-    }
-
-    public int[] getPreconditions() {
-        return this.preconditions;
     }
 
     public boolean hasCompletedPrecond(ArrayList<Integer> precondCompleted) {
