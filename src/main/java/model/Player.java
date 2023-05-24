@@ -69,8 +69,8 @@ public class Player {
     }
 
     private void move(int[] coord){
-        // todo : ajouter la durée du movement a duration
-        states.add("move");
+        states.add(calculDistance(coord) + " : déplacement de (" + playerCoord[0] + "," + playerCoord[1] + ") à (" + coord[0] + "," + coord[1] + ")");
+        playerCoord = coord;
     }
 
     /**
@@ -145,7 +145,8 @@ public class Player {
         int diffCoordX = questCoord[0] - playerCoord[0];
         int diffCoordY = questCoord[1] - playerCoord[1];
 
-        return diffCoordX + diffCoordY;
+        // (int) Math.sqrt(Math.pow(playerCoord[0]-questCoord[0],2) + Math.pow(playerCoord[1], questCoord[1]))
+        return Math.abs(diffCoordX) + Math.abs(diffCoordY);
     }
 
     public void showState() {
