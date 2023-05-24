@@ -79,59 +79,35 @@ public class Player {
     public void exhaustive() {
         ArrayList<Quest> availableQuests = new ArrayList<>(scenario.getProvQuests());
         ArrayList<Quest> completedQuests = new ArrayList<>();
-        ArrayList<Quest> postponedQuests = new ArrayList<>();
 
         while (!availableQuests.isEmpty()) {
-            Quest closestQuest = availableQuests.get(0);
-            int distMin = calculDistance(closestQuest.getCoordinates());
+            Quest closestQuest = null;
+            int distMin = Integer.MAX_VALUE;
 
             for (Quest quest : availableQuests) {
-                int dist = calculDistance(quest.getCoordinates());
-                if (dist < distMin) {
-                    distMin = dist;
-                    closestQuest = quest;
+                if (quest.getId() != 0 && (quest.noPrecond() || quest.hasCompletedPrecond(precondCompleted))) {
+                    int dist = calculDistance(quest.getCoordinates());
+                    if (dist < distMin) {
+                        distMin = dist;
+                        closestQuest = quest;
+                    }
                 }
             }
-            boolean canComplete = true;
-            for (int precondition : closestQuest.getPreconditions()) {
-                if (!completedQuests.contains(precondition)) {
-                    canComplete = false;
-                    break;
-                }
-            }
-            if (!canComplete) {
-                postponedQuests.add(closestQuest);
-                availableQuests.remove(closestQuest);
-                continue;
+            if (closestQuest == null) {
+                closestQuest = availableQuests.get(0);
             }
             playerCoord = closestQuest.getCoordinates();
             xp += closestQuest.getExperience();
             duration += closestQuest.getDuration();
             completedQuests.add(closestQuest);
             availableQuests.remove(closestQuest);
-
-            Iterator<Quest> iterator = postponedQuests.iterator();
-            while (iterator.hasNext()) {
-                Quest postponedQuest = iterator.next();
-                boolean canCompletePostponed = true;
-                for (int precondition : postponedQuest.getPreconditions()) {
-                    if (!completedQuests.contains(precondition)) {
-                        canCompletePostponed = false;
-                        break;
-                    }
-                }
-                if (canCompletePostponed) {
-                    iterator.remove();
-                    availableQuests.add(postponedQuest);
-                }
-            }
         }
         System.out.println("Quêtes Complétées :");
-        completedQuests.sort(Comparator.comparingInt(q -> Arrays.hashCode(q.getPreconditions())));
         for (Quest quest : completedQuests) {
             System.out.println(quest);
         }
     }
+
 
 
     /**
