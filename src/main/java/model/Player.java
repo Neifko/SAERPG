@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 
 public class Player {
     private Scenario scenario;
@@ -48,9 +49,7 @@ public class Player {
         }
     }
 
-    private void doQuest(Quest quest){
-
-    }
+    private void doQuest(Quest quest){}
 
     private void move(int[] coord){
         System.out.println("move");
@@ -65,14 +64,26 @@ public class Player {
 
         while (!availableQuests.isEmpty()) {
             Quest closestQuest = availableQuests.get(0);
-            float distMin = calculDistance(closestQuest.getCoordinates());
+            int distMin = calculDistance(closestQuest.getCoordinates());
 
             for (Quest quest : availableQuests) {
-                float dist = calculDistance(quest.getCoordinates());
+                int dist = calculDistance(quest.getCoordinates());
                 if (dist < distMin) {
                     distMin = dist;
                     closestQuest = quest;
                 }
+            }
+            boolean canComplete = true;
+            for (int precondition : closestQuest.getPreconditions()) {
+                if (!completedQuests.contains(precondition)) {
+                    canComplete = false;
+                    break;
+                }
+            }
+            if (!canComplete) {
+                completedQuests.add(closestQuest);
+                availableQuests.remove(closestQuest);
+                continue;
             }
 
             playerCoord = closestQuest.getCoordinates();
@@ -82,9 +93,23 @@ public class Player {
             availableQuests.remove(closestQuest);
         }
 
-        System.out.println("Quêtes Complétées (ordre des préconditions) :");
+        Iterator<Quest> iterator = completedQuests.iterator();
+        while (iterator.hasNext()) {
+            Quest postponedQuest = iterator.next();
+            boolean canCompletePostponed = true;
+            for (Quest precondition : postponedQuest.getPreconditions()) {
+                if (!completedQuests.contains(precondition)) {
+                    canCompletePostponed = false;
+                    break;
+                }
+            }
+            if (canCompletePostponed) {
+                iterator.remove();
+                availableQuests.add(postponedQuest)
+
+        System.out.println("Quêtes Complétées :");
         //*****************************************
-        completedQuests.sort(Comparator.comparingInt(q -> Arrays.hashCode(q.getPreconditions()))); ///****************************************************
+        completedQuests.sort(Comparator.comparingInt(q -> Arrays.hashCode(q.getPreconditions())));
         //*****************************************
         for (Quest quest : completedQuests) {
             System.out.println(quest);
@@ -94,9 +119,8 @@ public class Player {
 
     /**
      * calcule la distance entre les coordonnées du joueur et les coordonnées de la quete et la renvoie par la suite
-     *
-     * @param
      * @return float
+     * @param questCoord int[]
      */
     private int calculDistance(int[] questCoord) {
         int[] playerCoord = this.playerCoord;
@@ -110,8 +134,6 @@ public class Player {
     private void showState() {
 
     }
-
-
     public String toString(){
         return "Player 0";
     }
