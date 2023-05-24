@@ -1,6 +1,7 @@
 package model;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -109,12 +110,21 @@ public class Quest implements Comparable<Quest>{
 
     @Override
     public int compareTo(Quest quest) {
-        if (quest.getId() > this.id) return -1;
-        if (quest.getId() < this.id) return 1;
-        return 0;
+//        if (quest.getId() > this.id) return -1;
+//        if (quest.getId() < this.id) return 1;
+        return Integer.compare(quest.getId(), this.id);
     }
 
     public int[] getPreconditions() {
         return this.preconditions;
+    }
+
+    public boolean hasCompletedPrecond(ArrayList<Integer> precondCompleted) {
+        for (int i : preconditions){
+            if (!precondCompleted.contains(i) && i != 0){
+                return false;
+            }
+        }
+        return true;
     }
 }
