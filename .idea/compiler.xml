@@ -6,9 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="SAERPG" />
-        <module name="SAE_RPG" />
+        <module name="SAERPGIHM" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="SAE_RPG" target="18" />
+      <module name="SAERPGIHM" target="18" />
+    </bytecodeTargetLevel>
   </component>
 </project>
