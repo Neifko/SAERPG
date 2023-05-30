@@ -22,6 +22,7 @@ class QuestTest {
         Quest quest1 = new Quest("1|(4, 3)|()|2|100|explorer pic de Bhanborim");
         Quest quest2 = new Quest("2|(3, 1)|((1,),)|1|150|dialoguer avec Kaela la chaman des esprits");
         Quest quest3 = new Quest("3|(0, 4)|((2,),)|3|200|explorer palais de Ahehona");
+        Quest quest4 = new Quest("6|(26, 26)|((7, 13),)|7|200|explorer plaine de Dhirgolir");
         assertTrue(quest1.hasCompletedPrecond(listquest));
         listquest.add(1);
         assertTrue(quest2.hasCompletedPrecond(listquest));
@@ -29,5 +30,7 @@ class QuestTest {
         assertTrue(quest3.hasCompletedPrecond(listquest));
         listquest.remove(1);
         assertFalse(quest3.hasCompletedPrecond(listquest));
+        listquest.add(7);
+        assertTrue(quest4.hasCompletedPrecond(listquest));
     }
 }
