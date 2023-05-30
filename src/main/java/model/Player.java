@@ -35,27 +35,38 @@ public class Player {
         // On execute les quetes jusqu'a l'execution de la quete du boss
         int i = 10;
         while (!scenario.getQuest(questId).isBoss()) { //  && !(i<= 0)
-            // On regarde parmis les quetes celles qui n'a : pas de precondition puis on cherche la plus proche
-            for (Quest quest : todoQuests) {
-                if (quest.noPrecond() || quest.hasCompletedPrecond(precondCompleted)) {
-                    // On calcul la distance entre le joueur et la quete
-                    int dist = calculDistance(quest.getCoordinates());
-                    if (dist < distMin) {
-                        distMin = dist;
-                        closestQuest = quest;
-                        questId = closestQuest.getId();
+            Quest bossQuest = scenario.getQuest(0);
+            if (!(xp >= bossQuest.getExperience() && bossQuest.hasCompletedPrecond(precondCompleted))) {
+                System.out.println("pas bon" + xp);
+                // On regarde parmis les quetes celles qui n'a : pas de precondition puis on cherche la plus proche
+                for (Quest quest : todoQuests) {
+                    if (quest.noPrecond() || quest.hasCompletedPrecond(precondCompleted)) {
+                        // On calcul la distance entre le joueur et la quete
+                        int dist = calculDistance(quest.getCoordinates());
+                        if (dist < distMin) {
+                            if((quest.isBoss() && xp >= quest.getExperience()) || !quest.isBoss())
+                            {
+                                distMin = dist;
+                                closestQuest = quest;
+                                questId = closestQuest.getId();
+                            }
+                        }
                     }
                 }
+            } else {
+                System.out.println("bon" + xp);
+                closestQuest = bossQuest;
+                questId = closestQuest.getId();
             }
-            // todo : move player to quest coordinates
+
             move(closestQuest.getCoordinates());
             doQuest(closestQuest);
             todoQuests.remove(closestQuest);
             distMin = 9999;
 
-            System.out.println(todoQuests.size());
-            System.out.println(distMin + " " + closestQuest + " " + questId);
-            System.out.println("tour de boucle");
+//            System.out.println(todoQuests.size());
+            System.out.println(closestQuest + " " + questId);
+//            System.out.println("tour de boucle");
 
             i-= 1;
         }
@@ -63,12 +74,15 @@ public class Player {
 
     private void doQuest(Quest quest){
         duration += quest.getDuration();
-        xp += quest.getExperience();
+        if(!quest.isBoss()) {
+            xp += quest.getExperience();
+        }
         precondCompleted.add(quest.getId());
         states.add("+" + quest.getDuration() + " : quête " + quest.getId() + "(total xp : " + xp + ")");
     }
 
     private void move(int[] coord){
+        duration += calculDistance(coord);
         states.add(calculDistance(coord) + " : déplacement de (" + playerCoord[0] + "," + playerCoord[1] + ") à (" + coord[0] + "," + coord[1] + ")");
         playerCoord = coord;
     }
@@ -146,6 +160,7 @@ public class Player {
         for (String log : states){
             System.out.println(log);
         }
+        System.out.println("Durée : " + duration + " unités de temps");
     }
 
 

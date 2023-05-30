@@ -135,11 +135,17 @@ public class Quest implements Comparable<Quest>{
     }
 
     public boolean hasCompletedPrecond(ArrayList<Integer> precondCompleted) {
-        for (int i : preconditions){
-            if (!precondCompleted.contains(i) && i != 0){
-                return false;
+        boolean[] precond = new boolean[4];
+        for (int i =0; i<4; i++){
+            if(precondCompleted.contains(preconditions[i])){
+                precond[i] = precondCompleted.contains(preconditions[i]);
+            }else if (preconditions[i] == 0){
+                precond[i] = false;
+            }
+            else {
+                precond[i] = false;
             }
         }
-        return true;
+        return (precond[0] || precond[1]) && (precond[2] || precond[3]);
     }
 }
