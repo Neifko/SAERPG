@@ -87,7 +87,7 @@ public class Player {
 
     private void move(int[] coord){
         duration += calculDistance(coord);
-        states.add(calculDistance(coord) + " : déplacement de (" + playerCoord[0] + "," + playerCoord[1] + ") à (" + coord[0] + "," + coord[1] + ")");
+        states.add("+" + calculDistance(coord) + " : déplacement de (" + playerCoord[0] + "," + playerCoord[1] + ") à (" + coord[0] + "," + coord[1] + ")");
         playerCoord = coord;
     }
 
@@ -155,6 +155,7 @@ public class Player {
      * @param questCoord int[]
      */
     private int calculDistance(int[] questCoord) {
+        // Utilisez les coordonnées du joueur this.playerCoord au lieu de déclarer une nouvelle variable locale int[] playerCoord
         int[] playerCoord = this.playerCoord;
         // Calcul des différences de coordonnées en X et en Y
         int diffCoordX = questCoord[0] - playerCoord[0];
