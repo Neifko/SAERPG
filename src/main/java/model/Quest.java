@@ -133,19 +133,12 @@ public class Quest implements Comparable<Quest>{
 //        if (quest.getId() < this.id) return 1;
         return Integer.compare(quest.getId(), this.id);
     }
-
     public boolean hasCompletedPrecond(ArrayList<Integer> precondCompleted) {
-        boolean[] precond = new boolean[4];
-        for (int i =0; i<4; i++){
-            if(precondCompleted.contains(preconditions[i])){
-                precond[i] = precondCompleted.contains(preconditions[i]);
-            }else if (preconditions[i] == 0){
-                precond[i] = false;
-            }
-            else {
-                precond[i] = false;
+        for (int precond : preconditions) {
+            if (precond != 0 && !precondCompleted.contains(precond)) {
+                return false;
             }
         }
-        return (precond[0] || precond[1]) && (precond[2] || precond[3]);
+        return true;
     }
 }

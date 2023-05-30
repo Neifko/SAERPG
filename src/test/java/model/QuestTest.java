@@ -31,6 +31,7 @@ class QuestTest {
         listquest.remove(1);
         assertFalse(quest3.hasCompletedPrecond(listquest));
         listquest.add(7);
+        listquest.add(13);
         assertTrue(quest4.hasCompletedPrecond(listquest));
     }
 }
