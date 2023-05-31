@@ -151,11 +151,13 @@ public class Quest implements Comparable<Quest> {
      */
     @Override
     public int compareTo(Quest quest) {
-//        if (quest.getId() > this.id) return -1;
-//        if (quest.getId() < this.id) return 1;
         return Integer.compare(quest.getId(), this.id);
     }
-
+    /**
+     * Vérifie si une quête a complété les préconditions.
+     * @param precondCompleted Arraylist<Integer>
+     * @return boolean
+     */
     public boolean hasCompletedPrecond(ArrayList<Integer> precondCompleted) {
         boolean[] precond = new boolean[4];
         for (int i = 0; i < 4; i++) {
