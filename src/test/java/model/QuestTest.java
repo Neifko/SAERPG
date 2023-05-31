@@ -10,10 +10,20 @@ class QuestTest {
 
     @Test
     void noPrecond() {
+        Quest quest1 = new Quest("1|(4, 3)|()|2|100|explorer pic de Bhanborim");
+        assertTrue(quest1.noPrecond());
+
+        Quest quest2 = new Quest("2|(3, 1)|((1,),)|1|150|dialoguer avec Kaela la chaman des esprits");
+        assertFalse(quest2.noPrecond());
     }
 
     @Test
     void isBoss() {
+        Quest bossQuest = new Quest("0|(4, 3)|()|2|100|explorer pic de Bhanborim");
+        assertTrue(bossQuest.isBoss());
+
+        Quest nonBossQuest = new Quest("1|(4, 3)|()|2|100|explorer pic de Bhanborim");
+        assertFalse(nonBossQuest.isBoss());
     }
 
     @Test
