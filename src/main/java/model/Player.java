@@ -142,6 +142,9 @@ public class Player {
         // Ajout de la quête 0 en dernière position si elle existe
         if (questZero != null) {
             completedQuests.add(questZero);
+            // On joue la quete du boss
+            move(questZero.getCoordinates());
+            doQuest(questZero);
         }
         // Affichage des quêtes complétées
         System.out.println("Quêtes Complétées :");
