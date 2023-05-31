@@ -42,7 +42,7 @@ public class Player {
         while (!scenario.getQuest(questId).isBoss()) { //  && !(i<= 0)
             Quest bossQuest = scenario.getQuest(0);
             if (!(xp >= bossQuest.getExperience() && bossQuest.hasCompletedPrecond(precondCompleted))) {
-                System.out.println("pas bon" + xp);
+                System.out.println("pas bon" + " " + xp + " "+ "xp");
                 // On regarde parmis les quetes celles qui n'a : pas de precondition puis on cherche la plus proche
                 for (Quest quest : todoQuests) {
                     if (quest.noPrecond() || quest.hasCompletedPrecond(precondCompleted)) {
@@ -58,7 +58,7 @@ public class Player {
                     }
                 }
             } else {
-                System.out.println("bon" + xp);
+                System.out.println("bon" + " " + xp + " "+ "xp");
                 closestQuest = bossQuest;
                 questId = closestQuest.getId();
             }
