@@ -20,7 +20,7 @@ public class ClientQuest {
 //        int dist = monJoueur.calculDistance(new int[] {2,3});
 //        System.out.println(dist);
 
-        monJoueur.efficace();
+        monJoueur.exhaustive();
         monJoueur.showState();
 
     }
