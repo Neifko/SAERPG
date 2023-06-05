@@ -18,6 +18,9 @@ public class Player {
         states = new ArrayList<>();
     }
 
+    public Scenario getScenario(){
+        return scenario;
+    }
 
     public void doPlayerQuest(Quest quest) {
         states.add("+" + quest.getDuration() + " : quête " + quest.getId()); // todo : afficher total xp -  + "(total xp : " + xp + ")"

@@ -8,17 +8,21 @@ public class Solution {
 
     private static int xp;
     private int duration;
+    private Scenario scenario;
     private Player solPlayer;
 
     public Solution(Player player){
         completedQuests = new ArrayList<>();
         this.solPlayer = player;
+        scenario = solPlayer.getScenario();
+        todoQuests = new ArrayList<>();
+        todoQuests.addAll(scenario.getProvQuests());
     }
 
     /**
      * Solution efficace correspond au joueur qui realise les quetes les plus proches
      */
-    public void efficace(Scenario scenario) {
+    public void efficace() {
         // recupere la premiere quete du scenario en faisant en sorte que ce soit pas la quete du boss
         int questId = todoQuests.get(0).getId() == 0 ? todoQuests.get(1).getId() : todoQuests.get(0).getId();
         int distMin = 9999;
@@ -63,7 +67,7 @@ public class Solution {
     /**
      * Solution exhaustive correspond au joueur qui realise toutes les quetes
      */
-    public void exhaustive(Scenario scenario) {
+    public void exhaustive() {
         // Liste des quêtes disponibles
         ArrayList<Quest> availableQuests = new ArrayList<>(scenario.getProvQuests());
         // Liste des quêtes complétées
