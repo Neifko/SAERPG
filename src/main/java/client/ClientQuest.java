@@ -4,6 +4,7 @@ import iofile.ReadTextFile;
 import model.Player;
 import model.Quest;
 import model.Scenario;
+import model.Solution;
 
 import java.io.File;
 
@@ -16,11 +17,12 @@ public class ClientQuest {
 //        System.out.println(scenario);
 
         Player monJoueur = new Player(scenario);
+        Solution solution = new Solution(monJoueur);
 //        monJoueur.exhaustive();
 //        int dist = monJoueur.calculDistance(new int[] {2,3});
 //        System.out.println(dist);
 
-        monJoueur.exhaustive();
+        solution.efficace(scenario);
         monJoueur.showState();
 
     }
