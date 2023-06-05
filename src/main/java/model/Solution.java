@@ -6,7 +6,7 @@ public class Solution {
     private ArrayList<Quest> todoQuests;
     private ArrayList<Quest> completedQuests;
 
-    private static int xp;
+    private int xp;
     private int duration;
     private Scenario scenario;
     private Player solPlayer;
@@ -112,6 +112,7 @@ public class Solution {
                 availableQuests.remove(closestQuest);
             }
         }
+
         // Ajout de la quête 0 en dernière position si elle existe
         if (questZero != null) {
             localCompletedQuests.add(questZero);
@@ -119,6 +120,7 @@ public class Solution {
             move(questZero.getCoordinates());
             doQuest(questZero);
         }
+
         // Affichage des quêtes complétées
         System.out.println("Quêtes Complétées :");
         for (Quest quest : localCompletedQuests) {
@@ -141,7 +143,7 @@ public class Solution {
             xp += quest.getExperience();
         }
         completedQuests.add(quest);
-        solPlayer.doPlayerQuest(quest);
+        solPlayer.doPlayerQuest(quest, xp);
     }
 
     private void move(int[] coord) {

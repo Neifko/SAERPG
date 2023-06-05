@@ -6,6 +6,7 @@ public class Player {
     private Scenario scenario;
     private int[] playerCoord;
     private ArrayList<String> states;
+    private int duration;
 
     /***
      * Constructeur de la classe Player.
@@ -22,11 +23,14 @@ public class Player {
         return scenario;
     }
 
-    public void doPlayerQuest(Quest quest) {
-        states.add("+" + quest.getDuration() + " : quête " + quest.getId()); // todo : afficher total xp -  + "(total xp : " + xp + ")"
+    public void doPlayerQuest(Quest quest, int xpTot) {
+        duration += quest.getDuration();
+        states.add("+" + quest.getDuration() + " : quête " + quest.getId() + "(total xp : " + xpTot + ")");
     }
 
     public void movePlayer(int[] coord, int distance) {
+        duration += distance;
+        playerCoord = coord;
         states.add("+" + distance + " : déplacement de (" + playerCoord[0] + "," + playerCoord[1] + ") à (" + coord[0] + "," + coord[1] + ")");
     }
 
@@ -37,8 +41,7 @@ public class Player {
         for (String log : states) {
             System.out.println(log);
         }
-        // todo : afficher la durée total
-//        System.out.println("Durée : " + duration + " unités de temps");
+        System.out.println("Durée : " + duration + " unités de temps");
     }
 
     /***
