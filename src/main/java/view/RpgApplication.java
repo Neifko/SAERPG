@@ -19,7 +19,6 @@ import java.util.List;
 
 public class RpgApplication extends Application {
     private List<String> scenarios;
-
     @Override
     public void start(Stage stage) throws IOException {
         // Chargement des scénarios disponibles dans le répertoire
@@ -82,11 +81,11 @@ public class RpgApplication extends Application {
                 }
             }
         }
+
         stage.setTitle("RPG SAE IHM");
         stage.setScene(scene);
         stage.show();
     }
-
     private void loadScenarios() {
         scenarios = new ArrayList<>();
         File scenariosDirectory = new File("scenarios");
@@ -99,14 +98,16 @@ public class RpgApplication extends Application {
             }
         }
     }
-
     // à revoir
     private void generateSolutions(String selectedScenario, int x, int y) {
         // Code pour générer les tableaux de solutions efficace et exhaustive
         // en utilisant le scénario sélectionné et les coordonnées x et y
+
+        // Exemple de code pour afficher les valeurs sélectionnées
+        System.out.println("Scénario sélectionné : " + selectedScenario);
+        System.out.println("Coordonnées x : " + x);
+        System.out.println("Coordonnées y : " + y);
     }
-
-
     public static void main(String[] args) {
         launch();
     }

@@ -1,0 +1,80 @@
+/* Style du GridPane */
+.grid-pane {
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+/* Style du titre */
+.label-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 0;
+}
+
+/* Style des labels */
+.label {
+    -fx-font-size: 16px;
+    -fx-padding: 5px 0;
+}
+
+/* Style des ComboBox */
+.combo-box {
+    -fx-font-size: 16px;
+    -fx-pref-width: 200px;
+}
+
+/* Style des TextFields */
+.text-field {
+    -fx-font-size: 16px;
+    -fx-pref-width: 100px;
+}
+
+/* Style du bouton */
+.button {
+    -fx-font-size: 16px;
+    -fx-pref-width: 120px;
+    -fx-pref-height: 40px;
+    -fx-background-color: #115aa9;
+    -fx-text-fill: white;
+}
+
+/* Style du bouton lorsqu'il est survolé */
+.button:hover {
+    -fx-background-color: #07249d;
+}
+
+/* Style de la fenêtre */
+.rpg-window {
+    -fx-background-color: linear-gradient(#252525, #1a1a1a);
+    -fx-padding: 20px;
+}
+
+/* Style du titre de la fenêtre */
+.rpg-window .title-bar {
+    -fx-background-color: #333333;
+    -fx-padding: 10px;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+/* Style des boutons de la fenêtre */
+.rpg-window .button-bar {
+    -fx-background-color: #333333;
+    -fx-padding: 10px;
+}
+
+.rpg-window .button-bar .button {
+    -fx-font-size: 16px;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 30px;
+    -fx-background-color: #14a2cc;
+    -fx-text-fill: white;
+}
+
+.rpg-window .button-bar .button:hover {
+    -fx-background-color: #2066bb;
+}
+
+
+
+
