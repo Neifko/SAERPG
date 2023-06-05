@@ -1,17 +1,14 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Iterator;
 
 public class Player {
     private Scenario scenario;
-    private ArrayList<Quest> todoQuests;
+    private ArrayList<Quest> todoQuests; // a retirer
     private int[] playerCoord;
     private int xp;
     private int duration;
-    private ArrayList<Integer> precondCompleted;
+    private ArrayList<Integer> completedQuestsId; // a retirer
 
     private ArrayList<String> states;
 
@@ -22,71 +19,25 @@ public class Player {
      */
     public Player(Scenario parScenario) {
         scenario = parScenario;
-        todoQuests = new ArrayList<>();
-        todoQuests.addAll(scenario.getProvQuests());
+        todoQuests = new ArrayList<>(); // retirer
+        todoQuests.addAll(scenario.getProvQuests()); // retirer
         playerCoord = new int[]{0, 0};
-        precondCompleted = new ArrayList<>();
+        resetCompletedQuests(); // retirer
         states = new ArrayList<>();
     }
 
-    /**
-     * Solution efficace correspond au joueur qui realise les quetes les plus proches
-     */
-    public void efficace() {
-        // recupere la premiere quete du scenario en faisant en sorte que ce soit pas la quete du boss
-        int questId = todoQuests.get(0).getId() == 0 ? todoQuests.get(1).getId() : todoQuests.get(0).getId();
-        int distMin = 9999;
-        Quest closestQuest = scenario.getQuest(questId);
-        // On execute les quetes jusqu'a l'execution de la quete du boss
-        int i = 10;
-        while (!scenario.getQuest(questId).isBoss()) { //  && !(i<= 0)
-            Quest bossQuest = scenario.getQuest(0);
-            if (!(xp >= bossQuest.getExperience() && bossQuest.hasCompletedPrecond(precondCompleted))) {
-                System.out.println("pas bon" + " " + xp + " "+ "xp");
-                // On regarde parmis les quetes celles qui n'a : pas de precondition puis on cherche la plus proche
-                for (Quest quest : todoQuests) {
-                    if (quest.noPrecond() || quest.hasCompletedPrecond(precondCompleted)) {
-                        // On calcul la distance entre le joueur et la quete
-                        int dist = calculDistance(quest.getCoordinates());
-                        if (dist < distMin) {
-                            if ((quest.isBoss() && xp >= quest.getExperience()) || !quest.isBoss()) {
-                                distMin = dist;
-                                closestQuest = quest;
-                                questId = closestQuest.getId();
-                            }
-                        }
-                    }
-                }
-            } else {
-                System.out.println("bon" + " " + xp + " "+ "xp");
-                closestQuest = bossQuest;
-                questId = closestQuest.getId();
-            }
-
-            move(closestQuest.getCoordinates());
-            doQuest(closestQuest);
-            todoQuests.remove(closestQuest);
-            distMin = 9999;
-
-            System.out.println(closestQuest + " " + questId);
-
-            i -= 1;
-        }
+    private void resetCompletedQuests(){
+        completedQuestsId = new ArrayList<>();
     }
 
-    private void doQuest(Quest quest) {
-        duration += quest.getDuration();
-        if (!quest.isBoss()) {
-            xp += quest.getExperience();
-        }
-        precondCompleted.add(quest.getId());
+
+
+    public void doPlayerQuest(Quest quest) {
         states.add("+" + quest.getDuration() + " : quête " + quest.getId() + "(total xp : " + xp + ")");
     }
 
-    private void move(int[] coord) {
-        duration += calculDistance(coord);
+    public void movePlayer(int[] coord){
         states.add("+" + calculDistance(coord) + " : déplacement de (" + playerCoord[0] + "," + playerCoord[1] + ") à (" + coord[0] + "," + coord[1] + ")");
-        playerCoord = coord;
     }
 
     /**
@@ -96,7 +47,7 @@ public class Player {
         // Liste des quêtes disponibles
         ArrayList<Quest> availableQuests = new ArrayList<>(scenario.getProvQuests());
         // Liste des quêtes complétées
-        ArrayList<Quest> completedQuests = new ArrayList<>();
+        ArrayList<Quest> localCompletedQuests = new ArrayList<>();
         // Recherche de la quête 0
         Quest questZero = null;
         for (Quest quest : availableQuests) {
@@ -116,7 +67,7 @@ public class Player {
             int distMin = Integer.MAX_VALUE;
             for (Quest quest : availableQuests) {
                 // Vérification des préconditions de la quête
-                if (quest.noPrecond() || quest.hasCompletedPrecond(precondCompleted)) {
+                if (quest.noPrecond() || quest.hasCompletedPrecond(completedQuestsId)) {
                     int dist = calculDistance(quest.getCoordinates());
                     // Mise à jour de la quête la plus proche si la distance est inférieure à la distance minimale
                     if (dist < distMin) {
@@ -133,20 +84,20 @@ public class Player {
             if (closestQuest != null) {
                 move(closestQuest.getCoordinates());
                 doQuest(closestQuest);
-                completedQuests.add(closestQuest);
+                localCompletedQuests.add(closestQuest);
                 availableQuests.remove(closestQuest);
             }
         }
         // Ajout de la quête 0 en dernière position si elle existe
         if (questZero != null) {
-            completedQuests.add(questZero);
+            localCompletedQuests.add(questZero);
             // On joue la quete du boss
             move(questZero.getCoordinates());
             doQuest(questZero);
         }
         // Affichage des quêtes complétées
         System.out.println("Quêtes Complétées :");
-        for (Quest quest : completedQuests) {
+        for (Quest quest : localCompletedQuests) {
             System.out.println(quest);
         }
     }
@@ -183,5 +134,9 @@ public class Player {
      */
     public String toString() {
         return "Player 0";
+    }
+
+    public int[] getCoord(){
+        return playerCoord;
     }
 }
