@@ -61,4 +61,12 @@ public class Scenario {
     public String toString() {
         return this.provQuests.size() + " " + this.provQuests.toString();
     }
+
+    /**
+     * Récupère la liste des quêtes
+     * @return ArrayList<Quest>
+     */
+    public ArrayList<Quest> getQuests() {
+        return provQuests;
+    }
 }

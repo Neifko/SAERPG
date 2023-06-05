@@ -67,4 +67,5 @@ public class VBoxAffichageScenario extends VBox {
             tableSolutionExhaustive.getItems().addAll(quests);
         }
     }
+
 }

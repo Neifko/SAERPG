@@ -39,7 +39,7 @@ public class GridPaneRoot extends GridPane {
         TextField yTextField = new TextField("0");
         add(yTextField, 1, 4);
 
-        Button generateButton = new Button("Générer");
+        Button generateButton = new Button("Generer");
         generateButton.setOnAction(event -> {
             String selectedScenario = scenarioComboBox.getValue();
             if (selectedScenario != null) {

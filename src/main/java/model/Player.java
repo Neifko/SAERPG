@@ -184,4 +184,18 @@ public class Player {
     public String toString() {
         return "Player 0";
     }
+
+    /**
+     * Obtient les quêtes complétées par le joueur.
+     * @return Une liste des quêtes complétées.
+     */
+    public ArrayList<Quest> getCompletedQuests() {
+        ArrayList<Quest> completedQuests = new ArrayList<>();
+        for (Quest quest : scenario.getProvQuests()) {
+            if (precondCompleted.contains(quest.getId())) {
+                completedQuests.add(quest);
+            }
+        }
+        return completedQuests;
+    }
 }
