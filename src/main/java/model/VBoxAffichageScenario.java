@@ -5,53 +5,66 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.List;
 
-/**
- * VBoxAffichageScenario est une classe représentant un conteneur VBox affichant un titre "Solution efficace"
- * suivi d'un tableau de quêtes.
- */
 public class VBoxAffichageScenario extends VBox {
-    Label labelSolution;
-    TableView<Quest> tableDesQuetes;
+    private Label labelSolutionEfficace;
+    private TableView<Quest> tableSolutionEfficace;
+    private Label labelSolutionExhaustive;
+    private TableView<Quest> tableSolutionExhaustive;
 
-    /**
-     * Constructeur de la classe VBoxAffichageScenario.
-     * Initialise le VBox avec un label "Solution efficace" et un tableau de quêtes.
-     */
     public VBoxAffichageScenario() {
-        labelSolution = new Label(" Solution efficace ");
+        labelSolutionEfficace = new Label("Solution efficace");
 
-        tableDesQuetes = new TableView<>();
-        TableColumn<Quest, Integer> numeroColumn = new TableColumn<>("Numéro");
-        TableColumn<Quest, String> titreColumn = new TableColumn<>("Titre");
-        TableColumn<Quest, String> positionColumn = new TableColumn<>("Position");
+        tableSolutionEfficace = new TableView<>();
+        TableColumn<Quest, Integer> numeroColumnEfficace = new TableColumn<>("Numéro");
+        TableColumn<Quest, String> titreColumnEfficace = new TableColumn<>("Titre");
+        TableColumn<Quest, String> positionColumnEfficace = new TableColumn<>("Position");
 
-        numeroColumn.setCellValueFactory(new PropertyValueFactory<>("numero"));
-        titreColumn.setCellValueFactory(new PropertyValueFactory<>("titre"));
-        positionColumn.setCellValueFactory(new PropertyValueFactory<>("position"));
+        numeroColumnEfficace.setCellValueFactory(new PropertyValueFactory<>("numero"));
+        titreColumnEfficace.setCellValueFactory(new PropertyValueFactory<>("titre"));
+        positionColumnEfficace.setCellValueFactory(new PropertyValueFactory<>("position"));
 
-        tableDesQuetes.getColumns().add(numeroColumn);
-        tableDesQuetes.getColumns().add(titreColumn);
-        tableDesQuetes.getColumns().add(positionColumn);
+        tableSolutionEfficace.getColumns().addAll(numeroColumnEfficace, titreColumnEfficace, positionColumnEfficace);
 
-        this.getChildren().add(labelSolution);
-        this.getChildren().add(tableDesQuetes);
+        labelSolutionExhaustive = new Label("Solution exhaustive");
+
+        tableSolutionExhaustive = new TableView<>();
+        TableColumn<Quest, Integer> numeroColumnExhaustive = new TableColumn<>("Numéro");
+        TableColumn<Quest, String> titreColumnExhaustive = new TableColumn<>("Titre");
+        TableColumn<Quest, String> positionColumnExhaustive = new TableColumn<>("Position");
+
+        numeroColumnExhaustive.setCellValueFactory(new PropertyValueFactory<>("numero"));
+        titreColumnExhaustive.setCellValueFactory(new PropertyValueFactory<>("titre"));
+        positionColumnExhaustive.setCellValueFactory(new PropertyValueFactory<>("position"));
+
+        tableSolutionExhaustive.getColumns().addAll(numeroColumnExhaustive, titreColumnExhaustive, positionColumnExhaustive);
+
+        VBox vboxSolutionEfficace = new VBox(labelSolutionEfficace, tableSolutionEfficace);
+        VBox vboxSolutionExhaustive = new VBox(labelSolutionExhaustive, tableSolutionExhaustive);
+
+        HBox hboxTables = new HBox(vboxSolutionEfficace, vboxSolutionExhaustive);
+        hboxTables.setSpacing(10);
+
+        setSpacing(10);
+        setPadding(new Insets(10));
+        getChildren().add(hboxTables);
     }
 
-    /**
-     * Met à jour le tableau de quêtes avec la liste spécifiée.
-     *
-     * @param quetes Liste des quêtes à afficher dans le tableau.
-     */
-    public void updateTable(List<Quest> quetes) {
-        tableDesQuetes.getItems().clear();
-        if (quetes == null) {
-            return;
+    public void updateTableEfficace(List<Quest> quests) {
+        tableSolutionEfficace.getItems().clear();
+        if (quests != null) {
+            tableSolutionEfficace.getItems().addAll(quests);
         }
+    }
 
-        tableDesQuetes.getItems().addAll(quetes);
+    public void updateTableExhaustive(List<Quest> quests) {
+        tableSolutionExhaustive.getItems().clear();
+        if (quests != null) {
+            tableSolutionExhaustive.getItems().addAll(quests);
+        }
     }
 }

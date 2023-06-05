@@ -6,7 +6,6 @@ module com.hsn.saerpgihm {
     requires org.kordamp.bootstrapfx.core;
 
     opens com.hsn.saerpgihm to javafx.fxml;
-    exports com.hsn.saerpgihm;
     exports model;
     exports iofile;
     exports client;
