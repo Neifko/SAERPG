@@ -9,10 +9,18 @@ import javafx.scene.layout.VBox;
 
 import java.util.List;
 
+/**
+ * VBoxAffichageScenario est une classe représentant un conteneur VBox affichant un titre "Solution efficace"
+ * suivi d'un tableau de quêtes.
+ */
 public class VBoxAffichageScenario extends VBox {
     Label labelSolution;
     TableView<Quest> tableDesQuetes;
 
+    /**
+     * Constructeur de la classe VBoxAffichageScenario.
+     * Initialise le VBox avec un label "Solution efficace" et un tableau de quêtes.
+     */
     public VBoxAffichageScenario() {
         labelSolution = new Label(" Solution efficace ");
 
@@ -33,6 +41,11 @@ public class VBoxAffichageScenario extends VBox {
         this.getChildren().add(tableDesQuetes);
     }
 
+    /**
+     * Met à jour le tableau de quêtes avec la liste spécifiée.
+     *
+     * @param quetes Liste des quêtes à afficher dans le tableau.
+     */
     public void updateTable(List<Quest> quetes) {
         tableDesQuetes.getItems().clear();
         if (quetes == null) {
@@ -42,4 +55,3 @@ public class VBoxAffichageScenario extends VBox {
         tableDesQuetes.getItems().addAll(quetes);
     }
 }
-
