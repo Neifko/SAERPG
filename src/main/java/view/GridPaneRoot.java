@@ -15,16 +15,19 @@ import java.io.File;
 
 public class GridPaneRoot extends GridPane {
 
-    ComboBox<String> scenarioComboBox;
-    Button generateButton;
-    TextField yTextField;
-    Label yLabel;
-    TextField xTextField;
-    Label xLabel;
-    Label coordinatesLabel;
-    Label titleLabel;
+    ComboBox<String> scenarioComboBox; // ComboBox pour sélectionner un scénario
+    Button generateButton; // Bouton pour générer les solutions
+    TextField yTextField; // Champ de texte pour les coordonnées Y
+    Label yLabel; // Label pour les coordonnées Y
+    TextField xTextField; // Champ de texte pour les coordonnées X
+    Label xLabel; // Label pour les coordonnées X
+    Label coordinatesLabel; // Label pour indiquer de sélectionner les coordonnées
+    Label titleLabel; // Label pour indiquer de sélectionner un scénario
 
-
+    /**
+     * Constructeur de la classe GridPaneRoot.
+     * Initialise les éléments de l'interface graphique.
+     */
     public GridPaneRoot() {
         setPadding(new Insets(10));
         setHgap(10);
@@ -38,7 +41,7 @@ public class GridPaneRoot extends GridPane {
 
         // Charger les scénarios disponibles
         loadScenarios(scenarioComboBox);
-        Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + scenarioComboBox.getItems().get(0)));
+        Scenario scenario = (Scenario) scenarioComboBox.getUserData();
         HBoxRoot.setScenario(scenario);
 
         coordinatesLabel = new Label("Sélectionnez les coordonnées :");
@@ -59,21 +62,13 @@ public class GridPaneRoot extends GridPane {
         generateButton = new Button("Generer");
         generateButton.setId("Generer");
         generateButton.addEventHandler(ActionEvent.ACTION, HBoxRoot.getController());
-
-//        generateButton.setOnAction(event -> {
-//            String selectedScenario = scenarioComboBox.getValue();
-//            if (selectedScenario != null) {
-//                int x = Integer.parseInt(xTextField.getText());
-//                int y = Integer.parseInt(yTextField.getText());
-//                System.out.println("fesse");
-//                // Appeler la méthode pour générer les tableaux avec le scénario sélectionné
-//                // TODO: Ajouter le code pour générer les tableaux
-//                generateSolutions(selectedScenario, x, y);
-//            }
-//        });
         add(generateButton, 0, 5);
     }
 
+    /**
+     * Charge les scénarios disponibles dans la ComboBox.
+     * @param scenarioComboBox la ComboBox pour les scénarios
+     */
     private void loadScenarios(ComboBox<String> scenarioComboBox) {
         File scenariosDirectory = new File("scenarios");
         File[] files = scenariosDirectory.listFiles();
@@ -81,22 +76,16 @@ public class GridPaneRoot extends GridPane {
             for (File file : files) {
                 if (file.isFile()) {
                     scenarioComboBox.getItems().add(file.getName());
+                    // Charger le scénario correspondant et l'associer à la valeur de la combobox
+                    Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + file.getName()));
+                    scenarioComboBox.setUserData(scenario);
                 }
             }
         }
-
         // Définir le scénario par défaut
         if (!scenarioComboBox.getItems().isEmpty()) {
             scenarioComboBox.setValue(scenarioComboBox.getItems().get(0));
         }
     }
-//    private void generateSolutions(String selectedScenario, int x, int y) {
-//        // Code pour générer les tableaux de solutions efficace et exhaustive
-//        // en utilisant le scénario sélectionné et les coordonnées x et y
-//
-//        // Exemple de code pour afficher les valeurs sélectionnées
-//        System.out.println("Scénario sélectionné : " + selectedScenario);
-//        System.out.println("Coordonnées x : " + x);
-//        System.out.println("Coordonnées y : " + y);
-//    }
+
 }

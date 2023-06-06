@@ -18,15 +18,8 @@ public class RpgApplication extends Application {
      */
     @Override
     public void start(Stage stage) {
-//        BorderPane rootPane = new BorderPane();
-//        rootPane.setPadding(new Insets(10));
-//        VBoxAffichageScenario vboxAffichageScenario = new VBoxAffichageScenario();
-//        rootPane.setCenter(new GridPaneRoot());
-//        rootPane.setRight(vboxAffichageScenario);
-
         HBoxRoot root = new HBoxRoot();
         Scene scene = new Scene(root, 800, 500);
-
         // Chargement des fichiers CSS depuis le dossier "css"
         File[] fichiersCss = new File("css").listFiles();
         if (fichiersCss != null) {
@@ -34,12 +27,10 @@ public class RpgApplication extends Application {
                 scene.getStylesheets().add(fichier.toURI().toString());
             }
         }
-
         stage.setTitle("RPG SAE IHM");
         stage.setScene(scene);
         stage.show();
     }
-
     /**
      * Méthode principale de l'application.
      * Elle lance l'application JavaFX.

@@ -24,9 +24,9 @@ public class VBoxAffichageScenario extends VBox {
         TableColumn<Quest, String> titreColumnEfficace = new TableColumn<>("Titre");
         TableColumn<Quest, String> positionColumnEfficace = new TableColumn<>("Position");
 
-        numeroColumnEfficace.setCellValueFactory(new PropertyValueFactory<>("numero"));
-        titreColumnEfficace.setCellValueFactory(new PropertyValueFactory<>("titre"));
-        positionColumnEfficace.setCellValueFactory(new PropertyValueFactory<>("position"));
+        numeroColumnEfficace.setCellValueFactory(new PropertyValueFactory<>("id"));
+        titreColumnEfficace.setCellValueFactory(new PropertyValueFactory<>("title"));
+        positionColumnEfficace.setCellValueFactory(new PropertyValueFactory<>("formattedCoordinates"));// Utilisation de la méthode getFormattedCoordinates() pour la colonne position
 
         tableSolutionEfficace.getColumns().addAll(numeroColumnEfficace, titreColumnEfficace, positionColumnEfficace);
 
@@ -37,9 +37,9 @@ public class VBoxAffichageScenario extends VBox {
         TableColumn<Quest, String> titreColumnExhaustive = new TableColumn<>("Titre");
         TableColumn<Quest, String> positionColumnExhaustive = new TableColumn<>("Position");
 
-        numeroColumnExhaustive.setCellValueFactory(new PropertyValueFactory<>("numero"));
-        titreColumnExhaustive.setCellValueFactory(new PropertyValueFactory<>("titre"));
-        positionColumnExhaustive.setCellValueFactory(new PropertyValueFactory<>("position"));
+        numeroColumnExhaustive.setCellValueFactory(new PropertyValueFactory<>("id"));
+        titreColumnExhaustive.setCellValueFactory(new PropertyValueFactory<>("title"));
+        positionColumnExhaustive.setCellValueFactory(new PropertyValueFactory<>("formattedCoordinates"));// Utilisation de la méthode getFormattedCoordinates() pour la colonne position
 
         tableSolutionExhaustive.getColumns().addAll(numeroColumnExhaustive, titreColumnExhaustive, positionColumnExhaustive);
 

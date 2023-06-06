@@ -179,4 +179,14 @@ public class Quest implements Comparable<Quest> {
         }
         return (precond[0] || precond[1]) && (precond[2] || precond[3]);
     }
+
+    /**
+     * Renvoie une représentation sous forme de chaîne de caractères des coordonnées de la quête.
+     * (pour faciliter l'ajout de la position au tableaux)
+     * Cette méthode est utilisé Dans VBoxAffichageScenrio via la recherche : " positionColumnEfficace.setCellValueFactory(new PropertyValueFactory<>("formattedCoordinates"));"
+     * @return String
+     */
+    public String getFormattedCoordinates() {
+        return "(" + this.position[0] + ", " + this.position[1] + ")";
+    }
 }
