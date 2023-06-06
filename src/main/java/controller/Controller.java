@@ -69,8 +69,12 @@ public class Controller implements EventHandler<ActionEvent> {
         SolutionExhaustive solexh = new SolutionExhaustive(player);
 
         // Génération de la solution efficace
+        if(scenario == null){
+            System.out.println("SCENARIO NULL");
+            return;
+        }
 
-        solutionsEfficaces = soleff.parcours();;
+        solutionsEfficaces = soleff.parcours();
 
         // Génération de la solution exhaustive
         solutionsExhaustives = solexh.parcours();

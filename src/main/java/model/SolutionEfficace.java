@@ -13,6 +13,7 @@ public class SolutionEfficace extends Solution{
     public ArrayList<Quest> parcours() {
         // Liste des quêtes disponibles
         ArrayList<Quest> availableQuests = new ArrayList<>(scenario.getProvQuests());
+        System.out.println(availableQuests);
         // Liste des quêtes complétées
         ArrayList<Quest> localCompletedQuests = new ArrayList<>();
         // recupere la premiere quete du scenario en faisant en sorte que ce soit pas la quete du boss

@@ -1,5 +1,6 @@
 package view;
 
+import iofile.ReadTextFile;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -7,6 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import model.Scenario;
 import view.HBoxRoot;
 
 import java.io.File;
@@ -36,6 +38,8 @@ public class GridPaneRoot extends GridPane {
 
         // Charger les scénarios disponibles
         loadScenarios(scenarioComboBox);
+        Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + scenarioComboBox.getItems().get(0)));
+        HBoxRoot.setScenario(scenario);
 
         coordinatesLabel = new Label("Sélectionnez les coordonnées :");
         add(coordinatesLabel, 0, 2);

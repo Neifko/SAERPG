@@ -25,7 +25,6 @@ public class HBoxRoot extends HBox {
 
         // Créer l'instance de VBoxAffichageScenario
         vBoxAffichageScenario = new VBoxAffichageScenario();
-        scenario = new Scenario();
 
         // Configurer les marges et l'espacement
         setSpacing(10);
@@ -49,6 +48,7 @@ public class HBoxRoot extends HBox {
     }
 
     public static Scenario getScenario() {
+        System.out.println(scenario);
         return scenario;
     }
 
