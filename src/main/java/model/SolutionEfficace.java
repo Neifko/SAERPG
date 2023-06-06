@@ -56,4 +56,11 @@ public class SolutionEfficace extends Solution{
 
         return localCompletedQuests;
     }
+
+    public void speedrun(){
+        ArrayList<Quest> quetesCheminOptimal;
+        int dureeCheminOptimal;
+
+
+    }
 }
