@@ -27,6 +27,7 @@ public class Player {
     }
 
     public void movePlayer(int[] coord, int distance) {
+        playerCoord = coord;
         states.add("+" + distance + " : déplacement de (" + playerCoord[0] + "," + playerCoord[1] + ") à (" + coord[0] + "," + coord[1] + ")");
     }
 
