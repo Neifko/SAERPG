@@ -14,15 +14,15 @@ import model.VBoxAffichageScenario;
 public class HBoxRoot extends HBox {
     private static GridPaneRoot gridPaneRoot;
     private static VBoxAffichageScenario vBoxAffichageScenario;
-
     private static Controller controller;
     private static Scenario scenario;
 
     public HBoxRoot() {
-        // Créer le GridPane existant
-        gridPaneRoot = new GridPaneRoot();
         // Instancier le contrôleur
         controller = new Controller();
+        // Créer le GridPane existant
+        gridPaneRoot = new GridPaneRoot();
+
         // Créer l'instance de VBoxAffichageScenario
         vBoxAffichageScenario = new VBoxAffichageScenario();
         scenario = new Scenario();

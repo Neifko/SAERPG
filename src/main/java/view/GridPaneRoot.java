@@ -53,6 +53,7 @@ public class GridPaneRoot extends GridPane {
         add(yTextField, 1, 4);
 
         generateButton = new Button("Generer");
+        generateButton.setId("Generer");
         generateButton.addEventHandler(ActionEvent.ACTION, HBoxRoot.getController());
 
 //        generateButton.setOnAction(event -> {

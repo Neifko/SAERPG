@@ -9,4 +9,5 @@ module view {
     exports iofile;
     exports client;
     exports view;
+    exports controller;
 }
