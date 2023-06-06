@@ -10,4 +10,5 @@ module com.hsn.saerpgihm {
     exports model;
     exports iofile;
     exports client;
+    exports view;
 }
