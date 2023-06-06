@@ -5,10 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
-import model.Player;
-import model.Quest;
-import model.Scenario;
-import model.VBoxAffichageScenario;
+import model.*;
 import view.GridPaneRoot;
 import view.HBoxRoot;
 
@@ -68,14 +65,15 @@ public class Controller implements EventHandler<ActionEvent> {
     private void generateSolutions() {
         Scenario scenario = HBoxRoot.getScenario();
         Player player = new Player(scenario);
+        SolutionEfficace soleff = new SolutionEfficace(player);
+        SolutionExhaustive solexh = new SolutionExhaustive(player);
 
         // Génération de la solution efficace
-        player.efficace();
-        solutionsEfficaces = player.getCompletedQuests();
+
+        solutionsEfficaces = soleff.parcours();;
 
         // Génération de la solution exhaustive
-        player.exhaustive();
-        solutionsExhaustives = player.getCompletedQuests();
+        solutionsExhaustives = solexh.parcours();
 
         // Ajout des quêtes du scénario à la liste 'quetes'
         quetes = scenario.getQuests();
