@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Scenario {
     private ArrayList<Quest> provQuests = new ArrayList<>();
-
+    private String titre;
 
     /**
      * Ajoute les quêtes (dans le champ provQuests)
@@ -38,11 +38,35 @@ public class Scenario {
         return null;
     }
 
+    /**
+     * Définit le titre du scénario
+     * @param titre String
+     */
+    public void setTitle(String titre) {
+        this.titre = titre;
+    }
+
+    /**
+     * Récupère le titre du scénario
+     * @return String
+     */
+    public String getTitle() {
+        return titre;
+    }
+
     /***
-     * Permet d'obtenir une représentation textuelle de la taille de la liste des quetes et la liste elle-même
-     * @return la taille de la liste des quête ainsi que la liste elle-même
+     * Permet d'obtenir une représentation textuelle de la taille de la liste des quêtes et la liste elle-même
+     * @return la taille de la liste des quêtes ainsi que la liste elle-même
      */
     public String toString() {
         return this.provQuests.size() + " " + this.provQuests.toString();
+    }
+
+    /**
+     * Récupère la liste des quêtes
+     * @return ArrayList<Quest>
+     */
+    public ArrayList<Quest> getQuests() {
+        return provQuests;
     }
 }
