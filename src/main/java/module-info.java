@@ -1,11 +1,10 @@
-module com.hsn.saerpgihm {
+module view {
     requires javafx.controls;
     requires javafx.fxml;
 
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
 
-    opens com.hsn.saerpgihm to javafx.fxml;
     exports model;
     exports iofile;
     exports client;

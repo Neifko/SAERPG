@@ -51,21 +51,20 @@ public class VBoxAffichageScenario extends VBox {
 
         setSpacing(10);
         setPadding(new Insets(10));
-        getChildren().add(hboxTables);
+        this.getChildren().add(hboxTables);
     }
-
     public void updateTableEfficace(List<Quest> quests) {
         tableSolutionEfficace.getItems().clear();
-        if (quests != null) {
-            tableSolutionEfficace.getItems().addAll(quests);
+        if (quests == null) {return;}
+        for (Quest quete : quests){
+            tableSolutionEfficace.getItems().add(quete);
         }
     }
-
     public void updateTableExhaustive(List<Quest> quests) {
         tableSolutionExhaustive.getItems().clear();
-        if (quests != null) {
-            tableSolutionExhaustive.getItems().addAll(quests);
+        if (quests == null) {return;}
+        for (Quest quete : quests){
+            tableSolutionExhaustive.getItems().add(quete);
         }
     }
-
 }

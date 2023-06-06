@@ -12,7 +12,7 @@ import model.Scenario;
 import model.VBoxAffichageScenario;
 
 public class HBoxRoot extends HBox {
-    private static GridPane gridPaneRoot;
+    private static GridPaneRoot gridPaneRoot;
     private static VBoxAffichageScenario vBoxAffichageScenario;
 
     private static Controller controller;
@@ -20,21 +20,23 @@ public class HBoxRoot extends HBox {
 
     public HBoxRoot() {
         // Créer le GridPane existant
-        gridPaneRoot = new GridPane();
+        gridPaneRoot = new GridPaneRoot();
         // Instancier le contrôleur
         controller = new Controller();
         // Créer l'instance de VBoxAffichageScenario
         vBoxAffichageScenario = new VBoxAffichageScenario();
+        scenario = new Scenario();
 
         // Configurer les marges et l'espacement
         setSpacing(10);
         setPadding(new Insets(10));
 
         // Ajouter les éléments à l'HBox
-        getChildren().addAll(gridPaneRoot, vBoxAffichageScenario);
+        this.getChildren().add(gridPaneRoot);
+        this.getChildren().add(vBoxAffichageScenario);
     }
 
-    public static GridPane getGridPane() {
+    public static GridPane getGridPaneRoot() {
         return gridPaneRoot;
     }
 
@@ -58,7 +60,7 @@ public class HBoxRoot extends HBox {
         TableView<Quest> table = new TableView<>();
 
         // Création des colonnes de la table
-        TableColumn<Quest, String> colQuestId = new TableColumn<>("ID");
+        TableColumn<Quest, Integer> colQuestId = new TableColumn<>("ID");
         TableColumn<Quest, String> colQuestDuration = new TableColumn<>("Durée");
         TableColumn<Quest, String> colQuestExperience = new TableColumn<>("Expérience");
 
@@ -77,7 +79,7 @@ public class HBoxRoot extends HBox {
         TableView<Quest> table = new TableView<>();
 
         // Création des colonnes de la table
-        TableColumn<Quest, String> colQuestId = new TableColumn<>("ID");
+        TableColumn<Quest, Integer> colQuestId = new TableColumn<>("ID");
         TableColumn<Quest, String> colQuestDuration = new TableColumn<>("Durée");
         TableColumn<Quest, String> colQuestExperience = new TableColumn<>("Expérience");
 
@@ -96,7 +98,7 @@ public class HBoxRoot extends HBox {
         TableView<Quest> table = new TableView<>();
 
         // Création des colonnes de la table
-        TableColumn<Quest, String> colQuestId = new TableColumn<>("ID");
+        TableColumn<Quest, Integer> colQuestId = new TableColumn<>("ID");
         TableColumn<Quest, String> colQuestDuration = new TableColumn<>("Durée");
         TableColumn<Quest, String> colQuestExperience = new TableColumn<>("Expérience");
 

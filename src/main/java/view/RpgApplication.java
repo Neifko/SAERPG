@@ -18,16 +18,14 @@ public class RpgApplication extends Application {
      */
     @Override
     public void start(Stage stage) {
-        BorderPane rootPane = new BorderPane();
-        rootPane.setPadding(new Insets(10));
+//        BorderPane rootPane = new BorderPane();
+//        rootPane.setPadding(new Insets(10));
+//        VBoxAffichageScenario vboxAffichageScenario = new VBoxAffichageScenario();
+//        rootPane.setCenter(new GridPaneRoot());
+//        rootPane.setRight(vboxAffichageScenario);
 
-        GridPaneRoot gridPaneRoot = new GridPaneRoot();
-        VBoxAffichageScenario vboxAffichageScenario = new VBoxAffichageScenario();
-
-        rootPane.setCenter(gridPaneRoot);
-        rootPane.setRight(vboxAffichageScenario);
-
-        Scene scene = new Scene(rootPane, 800, 500);
+        HBoxRoot root = new HBoxRoot();
+        Scene scene = new Scene(root, 800, 500);
 
         // Chargement des fichiers CSS depuis le dossier "css"
         File[] fichiersCss = new File("css").listFiles();

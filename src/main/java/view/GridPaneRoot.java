@@ -7,52 +7,65 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import view.HBoxRoot;
 
 import java.io.File;
 
 public class GridPaneRoot extends GridPane {
+
+    ComboBox<String> scenarioComboBox;
+    Button generateButton;
+    TextField yTextField;
+    Label yLabel;
+    TextField xTextField;
+    Label xLabel;
+    Label coordinatesLabel;
+    Label titleLabel;
+
+
     public GridPaneRoot() {
         setPadding(new Insets(10));
         setHgap(10);
         setVgap(10);
 
-        Label titleLabel = new Label("Sélectionnez un scénario :");
+        titleLabel = new Label("Sélectionnez un scénario :");
         add(titleLabel, 0, 0);
 
-        ComboBox<String> scenarioComboBox = new ComboBox<>();
+        scenarioComboBox = new ComboBox<>();
         add(scenarioComboBox, 0, 1);
 
         // Charger les scénarios disponibles
         loadScenarios(scenarioComboBox);
 
-        Label coordinatesLabel = new Label("Sélectionnez les coordonnées :");
+        coordinatesLabel = new Label("Sélectionnez les coordonnées :");
         add(coordinatesLabel, 0, 2);
 
-        Label xLabel = new Label("x :");
+        xLabel = new Label("x :");
         add(xLabel, 0, 3);
 
-        TextField xTextField = new TextField("0");
+        xTextField = new TextField("0");
         add(xTextField, 1, 3);
 
-        Label yLabel = new Label("y :");
+        yLabel = new Label("y :");
         add(yLabel, 0, 4);
 
-        TextField yTextField = new TextField("0");
+        yTextField = new TextField("0");
         add(yTextField, 1, 4);
 
-        Button generateButton = new Button("Generer");
-        generateButton.setOnAction(event -> {
-            String selectedScenario = scenarioComboBox.getValue();
-            if (selectedScenario != null) {
-                int x = Integer.parseInt(xTextField.getText());
-                int y = Integer.parseInt(yTextField.getText());
-                System.out.println("fesse");
-                // Appeler la méthode pour générer les tableaux avec le scénario sélectionné
-                // TODO: Ajouter le code pour générer les tableaux
-                generateSolutions(selectedScenario, x, y);
-            }
-        });
-//        generateButton.addEventHandler(ActionEvent.ACTION, HBoxRoot.getController());
+        generateButton = new Button("Generer");
+        generateButton.addEventHandler(ActionEvent.ACTION, HBoxRoot.getController());
+
+//        generateButton.setOnAction(event -> {
+//            String selectedScenario = scenarioComboBox.getValue();
+//            if (selectedScenario != null) {
+//                int x = Integer.parseInt(xTextField.getText());
+//                int y = Integer.parseInt(yTextField.getText());
+//                System.out.println("fesse");
+//                // Appeler la méthode pour générer les tableaux avec le scénario sélectionné
+//                // TODO: Ajouter le code pour générer les tableaux
+//                generateSolutions(selectedScenario, x, y);
+//            }
+//        });
         add(generateButton, 0, 5);
     }
 
@@ -72,15 +85,13 @@ public class GridPaneRoot extends GridPane {
             scenarioComboBox.setValue(scenarioComboBox.getItems().get(0));
         }
     }
-
-
-    private void generateSolutions(String selectedScenario, int x, int y) {
-        // Code pour générer les tableaux de solutions efficace et exhaustive
-        // en utilisant le scénario sélectionné et les coordonnées x et y
-
-        // Exemple de code pour afficher les valeurs sélectionnées
-        System.out.println("Scénario sélectionné : " + selectedScenario);
-        System.out.println("Coordonnées x : " + x);
-        System.out.println("Coordonnées y : " + y);
-    }
+//    private void generateSolutions(String selectedScenario, int x, int y) {
+//        // Code pour générer les tableaux de solutions efficace et exhaustive
+//        // en utilisant le scénario sélectionné et les coordonnées x et y
+//
+//        // Exemple de code pour afficher les valeurs sélectionnées
+//        System.out.println("Scénario sélectionné : " + selectedScenario);
+//        System.out.println("Coordonnées x : " + x);
+//        System.out.println("Coordonnées y : " + y);
+//    }
 }
