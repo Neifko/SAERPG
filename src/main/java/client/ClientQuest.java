@@ -14,7 +14,7 @@ public class ClientQuest {
 //        System.out.println(scenario);
 
         Player monJoueur = new Player(scenario);
-        SolutionExhaustive solution = new SolutionExhaustive(monJoueur);
+        SolutionEfficace solution = new SolutionEfficace(monJoueur);
 //        monJoueur.exhaustive();
 //        int dist = monJoueur.calculDistance(new int[] {2,3});
 //        System.out.println(dist);
