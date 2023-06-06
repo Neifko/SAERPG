@@ -20,10 +20,13 @@ public class Controller implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
+        System.out.println("handle event");
         if (event.getSource() instanceof Button) {
             Button sourceButton = (Button) event.getSource();
+            System.out.println("clique sur bouton");
 
             if (sourceButton.getId().equals("Generer")) {
+                System.out.println("bouton generer");
                 generateSolutions();
                 addQuetesToTables();
             }

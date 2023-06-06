@@ -1,5 +1,6 @@
 package view;
 
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -45,11 +46,13 @@ public class GridPaneRoot extends GridPane {
             if (selectedScenario != null) {
                 int x = Integer.parseInt(xTextField.getText());
                 int y = Integer.parseInt(yTextField.getText());
+                System.out.println("fesse");
                 // Appeler la méthode pour générer les tableaux avec le scénario sélectionné
                 // TODO: Ajouter le code pour générer les tableaux
                 generateSolutions(selectedScenario, x, y);
             }
         });
+//        generateButton.addEventHandler(ActionEvent.ACTION, HBoxRoot.getController());
         add(generateButton, 0, 5);
     }
 
