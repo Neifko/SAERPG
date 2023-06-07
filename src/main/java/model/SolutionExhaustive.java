@@ -63,10 +63,10 @@ public class SolutionExhaustive extends Solution{
             doQuest(questZero);
         }
         // Affichage des quêtes complétées
-        System.out.println("Quêtes Complétées :");
-        for (Quest quest : localCompletedQuests) {
-            System.out.println(quest);
-        }
+//        System.out.println("Quêtes Complétées :");
+//        for (Quest quest : localCompletedQuests) {
+//            System.out.println(quest);
+//        }
 
         return localCompletedQuests;
     }

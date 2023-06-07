@@ -6,6 +6,7 @@ public class Solution {
 
     protected int xp;
     protected int duration;
+    protected int distance;
     protected Scenario scenario;
     protected Player solPlayer;
 
@@ -36,7 +37,9 @@ public class Solution {
     }
 
     protected void move(int[] coord) {
-        duration += calculDistance(solPlayer.getCoord(), coord);
+        int dist = calculDistance(solPlayer.getCoord(), coord);
+        duration += dist;
+        distance += dist;
         solPlayer.movePlayer(coord, calculDistance(solPlayer.getCoord(), coord));
     }
 
