@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SolutionEfficace extends Solution {
     /**
@@ -64,56 +65,63 @@ public class SolutionEfficace extends Solution {
         return localCompletedQuests;
     }
 
+    public class SpeedrunSolution {
+        public ArrayList<Quest> optimalQuests;
+        public int optimalDuration;
+    }
+
     public void speedrun() {
         System.out.println("DEBUT SPEEDRUN");
-        // On recupere le trajet efficace
-        ArrayList<Quest> optimalQuests = parcours();
-        DurationWrapper optimalDuration = new DurationWrapper(Integer.MAX_VALUE);
 
-        ArrayList<Quest> currentQuests = new ArrayList<>();
-        int currentDuration = 0;
+        ArrayList<Quest> availableQuests = new ArrayList<>(scenario.getProvQuests());
+        int numQuests = availableQuests.size();
 
-        generateCombinations(new ArrayList<>(scenario.getProvQuests()), currentQuests, 0, currentDuration, optimalQuests, optimalDuration);
+        // Tableau pour stocker les durées optimales pour chaque combinaison de quêtes
+        int[][] optimalDurations = new int[numQuests + 1][numQuests + 1];
 
+        // Initialisation des durées optimales à une valeur maximale
+        for (int i = 0; i <= numQuests; i++) {
+            Arrays.fill(optimalDurations[i], Integer.MAX_VALUE);
+        }
+
+        // Cas de base : aucune quête
+        optimalDurations[0][0] = 0;
+
+        // Calcul des durées optimales pour toutes les combinaisons de quêtes
+        for (int i = 1; i <= numQuests; i++) {
+            Quest quest = availableQuests.get(i - 1);
+            int duration = quest.getDuration();
+
+            for (int j = 0; j <= i; j++) {
+                // Exclusion de la quête actuelle
+                optimalDurations[i][j] = Math.min(optimalDurations[i][j], optimalDurations[i - 1][j]);
+
+                if (j > 0) {
+                    // Inclusion de la quête actuelle
+                    optimalDurations[i][j] = Math.min(optimalDurations[i][j], optimalDurations[i - 1][j - 1] + duration);
+                }
+            }
+        }
+
+        // Reconstruction de la solution optimale en termes de durée
+        ArrayList<Quest> optimalQuests = new ArrayList<>();
+        int j = numQuests;
+        for (int i = numQuests; i >= 1; i--) {
+            if (optimalDurations[i][j] < optimalDurations[i - 1][j]) {
+                Quest quest = availableQuests.get(i - 1);
+                optimalQuests.add(0, quest);
+                j--;
+            }
+        }
+
+        // Affichage de la solution optimale
         System.out.println("Solution optimale en termes de durée :");
         for (Quest quest : optimalQuests) {
             System.out.println(quest);
         }
-        System.out.println("Durée totale : " + optimalDuration.getDuration() + " unités de temps");
+        System.out.println("Durée totale : " + optimalDurations[numQuests][numQuests] + " unités de temps");
     }
 
-    private void generateCombinations(ArrayList<Quest> availableQuests, ArrayList<Quest> currentQuests, int index, int currentDuration, ArrayList<Quest> optimalQuests, DurationWrapper optimalDuration) {
-        System.out.println("Generate combination : " + currentDuration + " | current quests : " + currentQuests);
 
-        if (currentDuration >= optimalDuration.getDuration()) {
-            System.out.println(" current duration plus grand que optimal duration");
-            return;
-        }
 
-        if (index == availableQuests.size()) {
-            System.out.println(" On a parcouru toutes les quetes");
-            if (currentDuration < optimalDuration.getDuration()) {
-                System.out.println("  current duration plus petit que optimal duration");
-                optimalDuration.setDuration(currentDuration);
-                optimalQuests.clear();
-                optimalQuests.addAll(currentQuests);
-            }
-            return;
-        }
-
-        Quest currentQuest = availableQuests.get(index);
-
-        generateCombinations(availableQuests, currentQuests, index + 1, currentDuration, optimalQuests, optimalDuration);
-        currentQuests.add(currentQuest);
-        currentDuration += currentQuest.getDuration();
-
-        generateCombinations(availableQuests, currentQuests, index + 1, currentDuration, optimalQuests, optimalDuration);
-        currentQuests.remove(currentQuest);
-        currentDuration -= currentQuest.getDuration();
-
-        // Mettre à jour la durée optimale lorsqu'une solution optimale est trouvée
-        if (currentDuration < optimalDuration.getDuration()) {
-            optimalDuration.setDuration(currentDuration);
-        }
-    }
 }
