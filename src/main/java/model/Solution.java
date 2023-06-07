@@ -32,7 +32,7 @@ public class Solution {
         if (!quest.isBoss()) {
             xp += quest.getExperience();
         }
-        solPlayer.doPlayerQuest(quest);
+        solPlayer.doPlayerQuest(quest, xp);
     }
 
     protected void move(int[] coord) {
