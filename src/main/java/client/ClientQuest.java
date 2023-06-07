@@ -1,10 +1,7 @@
 package client;
 
 import iofile.ReadTextFile;
-import model.Player;
-import model.Quest;
-import model.Scenario;
-import model.Solution;
+import model.*;
 
 import java.io.File;
 
@@ -17,12 +14,12 @@ public class ClientQuest {
 //        System.out.println(scenario);
 
         Player monJoueur = new Player(scenario);
-        Solution solution = new Solution(monJoueur);
+        SolutionExhaustive solution = new SolutionExhaustive(monJoueur);
 //        monJoueur.exhaustive();
 //        int dist = monJoueur.calculDistance(new int[] {2,3});
 //        System.out.println(dist);
 
-        solution.efficace();
+        solution.parcours();
         monJoueur.showState();
 
     }
