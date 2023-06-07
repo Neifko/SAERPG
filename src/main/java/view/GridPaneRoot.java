@@ -12,6 +12,9 @@ import model.Scenario;
 import view.HBoxRoot;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class GridPaneRoot extends GridPane {
 
@@ -41,8 +44,12 @@ public class GridPaneRoot extends GridPane {
 
         // Charger les scénarios disponibles
         loadScenarios(scenarioComboBox);
-        Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + scenarioComboBox.getItems().get(0)));
-        HBoxRoot.setScenario(scenario);
+
+        // Sélectionner le scénario par défaut
+        scenarioComboBox.setValue(scenarioComboBox.getItems().get(0));
+
+        // Écouter les changements de sélection de la ComboBox
+        scenarioComboBox.setOnAction(this::handleScenarioSelection);
 
         coordinatesLabel = new Label("Sélectionnez les coordonnées :");
         add(coordinatesLabel, 0, 2);
@@ -72,28 +79,60 @@ public class GridPaneRoot extends GridPane {
     private void loadScenarios(ComboBox<String> scenarioComboBox) {
         File scenariosDirectory = new File("scenarios");
         File[] files = scenariosDirectory.listFiles();
+        List<String> scenarioNames = new ArrayList<>();
+
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
                     String scenarioName = file.getName();
-                    scenarioComboBox.getItems().add(scenarioName);
-
-                    // Charger le scénario correspondant
-                    Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + scenarioName));
-
-                    // Associer le scénario à la valeur de la ComboBox
-                    scenarioComboBox.setUserData(scenario);
+                    scenarioNames.add(scenarioName);
                 }
             }
         }
 
+        // Tri des noms de scénarios dans l'ordre numérique
+        Collections.sort(scenarioNames, (s1, s2) -> {
+            int scenarioNumber1 = extractScenarioNumber(s1);
+            int scenarioNumber2 = extractScenarioNumber(s2);
+            return Integer.compare(scenarioNumber1, scenarioNumber2);
+        });
+
+        // Ajouter les scénarios triés à la ComboBox
+        scenarioComboBox.getItems().addAll(scenarioNames);
+
         // Définir le scénario par défaut
         if (!scenarioComboBox.getItems().isEmpty()) {
             scenarioComboBox.setValue(scenarioComboBox.getItems().get(0));
-            Scenario defaultScenario = (Scenario) scenarioComboBox.getUserData();
+            String defaultScenarioName = scenarioComboBox.getValue();
+            Scenario defaultScenario = ReadTextFile.read(new File("scenarios" + File.separator + defaultScenarioName));
             HBoxRoot.setScenario(defaultScenario);
         }
     }
 
+    /**
+     * Extrait le numéro de scénario à partir du nom du fichier.
+     * Par exemple, pour le fichier "scenario_3.txt", le numéro de scénario est 3.
+     * @param scenarioFileName le nom du fichier de scénario
+     * @return le numéro de scénario extrait
+     */
+    private int extractScenarioNumber(String scenarioFileName) {
+        try {
+            String scenarioNumber = scenarioFileName.replace("scenario_", "").replace(".txt", "");
+            return Integer.parseInt(scenarioNumber);
+        } catch (NumberFormatException e) {
+            return Integer.MAX_VALUE; // Valeur maximale si le numéro de scénario n'est pas un entier valide
+        }
+    }
+
+    /**
+     * Gère la sélection d'un scénario dans la ComboBox.
+     * @param event l'événement de sélection
+     */
+    private void handleScenarioSelection(ActionEvent event) {
+        String selectedScenarioName = scenarioComboBox.getValue();
+        File selectedScenarioFile = new File("scenarios" + File.separator + selectedScenarioName);
+        Scenario selectedScenario = ReadTextFile.read(selectedScenarioFile);
+        HBoxRoot.setScenario(selectedScenario);
+    }
 
 }

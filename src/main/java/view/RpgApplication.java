@@ -19,7 +19,7 @@ public class RpgApplication extends Application {
     @Override
     public void start(Stage stage) {
         HBoxRoot root = new HBoxRoot();
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(root, 900, 550);
         // Chargement des fichiers CSS depuis le dossier "css"
         File[] fichiersCss = new File("css").listFiles();
         if (fichiersCss != null) {
