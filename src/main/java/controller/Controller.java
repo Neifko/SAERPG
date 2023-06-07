@@ -48,8 +48,6 @@ public class Controller implements EventHandler<ActionEvent> {
         addQuetesToTables();
     }
 
-
-
     private void addQuetesToTables() {
         // Obtention des instances des différentes vues
         TableView<Quest> efficaceTable = HBoxRoot.getEfficaceTable();

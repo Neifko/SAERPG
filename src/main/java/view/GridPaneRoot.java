@@ -41,7 +41,7 @@ public class GridPaneRoot extends GridPane {
 
         // Charger les scénarios disponibles
         loadScenarios(scenarioComboBox);
-        Scenario scenario = (Scenario) scenarioComboBox.getUserData();
+        Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + scenarioComboBox.getItems().get(0)));
         HBoxRoot.setScenario(scenario);
 
         coordinatesLabel = new Label("Sélectionnez les coordonnées :");
@@ -75,17 +75,25 @@ public class GridPaneRoot extends GridPane {
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
-                    scenarioComboBox.getItems().add(file.getName());
-                    // Charger le scénario correspondant et l'associer à la valeur de la combobox
-                    Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + file.getName()));
+                    String scenarioName = file.getName();
+                    scenarioComboBox.getItems().add(scenarioName);
+
+                    // Charger le scénario correspondant
+                    Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + scenarioName));
+
+                    // Associer le scénario à la valeur de la ComboBox
                     scenarioComboBox.setUserData(scenario);
                 }
             }
         }
+
         // Définir le scénario par défaut
         if (!scenarioComboBox.getItems().isEmpty()) {
             scenarioComboBox.setValue(scenarioComboBox.getItems().get(0));
+            Scenario defaultScenario = (Scenario) scenarioComboBox.getUserData();
+            HBoxRoot.setScenario(defaultScenario);
         }
     }
+
 
 }
