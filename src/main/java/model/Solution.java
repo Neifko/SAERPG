@@ -10,15 +10,31 @@ public class Solution {
     protected Scenario scenario;
     protected Player solPlayer;
 
+    /**
+     * Constructeur de la classe Solution. Initialise le joueur et récupère le scénario associé.
+     *
+     * @param player Le joueur utilisé dans la solution.
+     */
     public Solution(Player player) {
         this.solPlayer = player;
         scenario = solPlayer.getScenario();
     }
 
+    /**
+     * Parcourt les quêtes et renvoie une liste vide (dans ce cas la) (les algorithmes sont dans les classes filles).
+     *
+     * @return Une liste vide d'objets Quest.
+     */
     public ArrayList<Quest> parcours(){
         return new ArrayList<>();
     }
 
+    /**
+     * Convertit une liste de quêtes terminées en une liste d'identifiants de quêtes.
+     *
+     * @param completedQuests La liste des quêtes terminées.
+     * @return Une liste d'entiers représentant les identifiants des quêtes terminées.
+     */
     protected ArrayList<Integer> completedQuestsToIds(ArrayList<Quest> completedQuests) {
         ArrayList<Integer> ids = new ArrayList<>();
         for (Quest quest : completedQuests
@@ -28,6 +44,11 @@ public class Solution {
         return ids;
     }
 
+    /**
+     * Effectue une quête spécifique, met à jour la durée, l'expérience et execute la quete chez le joueur.
+     *
+     * @param quest La quête à effectuer.
+     */
     protected void doQuest(Quest quest) {
         duration += quest.getDuration();
         if (!quest.isBoss()) {
@@ -36,6 +57,12 @@ public class Solution {
         solPlayer.doPlayerQuest(quest, xp);
     }
 
+    /**
+     * Déplace le joueur vers les coordonnées spécifiées, met à jour la durée et la distance parcourue, et execute
+     * le deplacement chez le joueur.
+     *
+     * @param coord Les nouvelles coordonnées du joueur.
+     */
     protected void move(int[] coord) {
         int dist = calculDistance(solPlayer.getCoord(), coord);
         duration += dist;

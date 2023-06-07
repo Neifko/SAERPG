@@ -3,12 +3,19 @@ package model;
 import java.util.ArrayList;
 
 public class SolutionExhaustive extends Solution{
+    /**
+     * Constructeur de la classe SolutionExhaustive.
+     *
+     * @param player le joueur
+     */
     public SolutionExhaustive(Player player) {
         super(player);
     }
 
     /**
-     * Solution exhaustive correspond au joueur qui realise toutes les quetes
+     * Algorithme de parcours exhaustif du scénario.
+     *
+     * @return le chemin exhaustif
      */
     public ArrayList<Quest> parcours() {
         // Liste des quêtes disponibles

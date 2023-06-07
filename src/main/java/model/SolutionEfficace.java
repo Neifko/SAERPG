@@ -3,17 +3,23 @@ package model;
 import java.util.ArrayList;
 
 public class SolutionEfficace extends Solution {
+    /**
+     * Constructeur de la classe SolutionEfficace
+     * @param player le joueur
+     */
     public SolutionEfficace(Player player) {
         super(player);
     }
 
     /**
-     * Solution efficace correspond au joueur qui réalise les quêtes les plus proches
+     * Algorithme de parcours efficace du scénario.
+     *
+     * @return le chemin efficace
      */
     public ArrayList<Quest> parcours() {
         // Liste des quêtes disponibles
         ArrayList<Quest> availableQuests = new ArrayList<>(scenario.getProvQuests());
-        System.out.println(availableQuests);
+//        System.out.println(availableQuests);
         // Liste des quêtes complétées
         ArrayList<Quest> localCompletedQuests = new ArrayList<>();
         // récupère la première quête du scénario en faisant en sorte que ce ne soit pas la quête du boss
@@ -50,7 +56,7 @@ public class SolutionEfficace extends Solution {
             availableQuests.remove(closestQuest);
             distMin = 9999;
 
-            System.out.println(closestQuest + " " + questId);
+//            System.out.println(closestQuest + " " + questId);
 
             i -= 1;
         }
@@ -59,6 +65,8 @@ public class SolutionEfficace extends Solution {
     }
 
     public void speedrun() {
+        System.out.println("DEBUT SPEEDRUN");
+        // On recupere le trajet efficace
         ArrayList<Quest> optimalQuests = parcours();
         DurationWrapper optimalDuration = new DurationWrapper(Integer.MAX_VALUE);
 
@@ -75,12 +83,17 @@ public class SolutionEfficace extends Solution {
     }
 
     private void generateCombinations(ArrayList<Quest> availableQuests, ArrayList<Quest> currentQuests, int index, int currentDuration, ArrayList<Quest> optimalQuests, DurationWrapper optimalDuration) {
+        System.out.println("Generate combination : " + currentDuration + " | current quests : " + currentQuests);
+
         if (currentDuration >= optimalDuration.getDuration()) {
+            System.out.println(" current duration plus grand que optimal duration");
             return;
         }
 
         if (index == availableQuests.size()) {
+            System.out.println(" On a parcouru toutes les quetes");
             if (currentDuration < optimalDuration.getDuration()) {
+                System.out.println("  current duration plus petit que optimal duration");
                 optimalDuration.setDuration(currentDuration);
                 optimalQuests.clear();
                 optimalQuests.addAll(currentQuests);
@@ -91,9 +104,9 @@ public class SolutionEfficace extends Solution {
         Quest currentQuest = availableQuests.get(index);
 
         generateCombinations(availableQuests, currentQuests, index + 1, currentDuration, optimalQuests, optimalDuration);
-
         currentQuests.add(currentQuest);
         currentDuration += currentQuest.getDuration();
+
         generateCombinations(availableQuests, currentQuests, index + 1, currentDuration, optimalQuests, optimalDuration);
         currentQuests.remove(currentQuest);
         currentDuration -= currentQuest.getDuration();
@@ -101,21 +114,6 @@ public class SolutionEfficace extends Solution {
         // Mettre à jour la durée optimale lorsqu'une solution optimale est trouvée
         if (currentDuration < optimalDuration.getDuration()) {
             optimalDuration.setDuration(currentDuration);
-        }
-    }
-    class DurationWrapper {
-        private int duration;
-
-        public DurationWrapper(int duration) {
-            this.duration = duration;
-        }
-
-        public int getDuration() {
-            return duration;
-        }
-
-        public void setDuration(int duration) {
-            this.duration = duration;
         }
     }
 }

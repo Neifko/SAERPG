@@ -11,17 +11,16 @@ public class ClientQuest {
 //        System.out.println(maquete);
 
         Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + "scenario_0.txt"));
-//        System.out.println(scenario);
-
         Player monJoueur = new Player(scenario);
         SolutionEfficace solution = new SolutionEfficace(monJoueur);
 //        monJoueur.exhaustive();
 //        int dist = monJoueur.calculDistance(new int[] {2,3});
 //        System.out.println(dist);
 
-        solution.parcours();
-        monJoueur.showState();
+//        solution.parcours();
+
 
         solution.speedrun();
+//        monJoueur.showState();
     }
 }

@@ -14,20 +14,6 @@ public class Quest implements Comparable<Quest> {
     private String title;
 
     /**
-     * Vérifie si la quête n'a aucune précondition.
-     *
-     * @return boolean
-     */
-    public boolean noPrecond() {
-        for (int precond : this.preconditions) {
-            if (precond != 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * Constructeur de la classe Quest.
      *
      * @param line la chaîne de caractères contenant les informations de la quête
@@ -45,6 +31,20 @@ public class Quest implements Comparable<Quest> {
             this.experience = scanner.nextInt();
             this.title = scanner.next();
         }
+    }
+
+    /**
+     * Vérifie si la quête n'a aucune précondition.
+     *
+     * @return boolean
+     */
+    public boolean noPrecond() {
+        for (int precond : this.preconditions) {
+            if (precond != 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
