@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Solution {
 
-    protected static int xp;
+    protected int xp;
     protected int duration;
     protected Scenario scenario;
     protected Player solPlayer;
@@ -32,7 +32,7 @@ public class Solution {
         if (!quest.isBoss()) {
             xp += quest.getExperience();
         }
-        solPlayer.doPlayerQuest(quest);
+        solPlayer.doPlayerQuest(quest, xp);
     }
 
     protected void move(int[] coord) {
