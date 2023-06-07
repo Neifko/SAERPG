@@ -68,6 +68,7 @@ public class GridPaneRoot extends GridPane {
 
         generateButton = new Button("Generer");
         generateButton.setId("Generer");
+        generateButton.setOnAction(event -> HBoxRoot.getController().handle(new ActionEvent()));
         generateButton.addEventHandler(ActionEvent.ACTION, HBoxRoot.getController());
         add(generateButton, 0, 5);
     }
