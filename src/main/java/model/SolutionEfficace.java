@@ -2,13 +2,13 @@ package model;
 
 import java.util.ArrayList;
 
-public class SolutionEfficace extends Solution{
+public class SolutionEfficace extends Solution {
     public SolutionEfficace(Player player) {
         super(player);
     }
 
     /**
-     * Solution efficace correspond au joueur qui realise les quetes les plus proches
+     * Solution efficace correspond au joueur qui réalise les quêtes les plus proches
      */
     public ArrayList<Quest> parcours() {
         // Liste des quêtes disponibles
@@ -16,19 +16,19 @@ public class SolutionEfficace extends Solution{
         System.out.println(availableQuests);
         // Liste des quêtes complétées
         ArrayList<Quest> localCompletedQuests = new ArrayList<>();
-        // recupere la premiere quete du scenario en faisant en sorte que ce soit pas la quete du boss
+        // récupère la première quête du scénario en faisant en sorte que ce ne soit pas la quête du boss
         int questId = availableQuests.get(0).getId() == 0 ? availableQuests.get(1).getId() : availableQuests.get(0).getId();
         int distMin = 9999;
         Quest closestQuest = scenario.getQuest(questId);
-        // On execute les quetes jusqu'a l'execution de la quete du boss
+        // On exécute les quêtes jusqu'à l'exécution de la quête du boss
         int i = 10;
-        while (!scenario.getQuest(questId).isBoss()) { //  && !(i<= 0)
+        while (!scenario.getQuest(questId).isBoss() && i > 0) { // modifié && i > 0 ajouté
             Quest bossQuest = scenario.getQuest(0);
             if (!(xp >= bossQuest.getExperience() && bossQuest.hasCompletedPrecond(completedQuestsToIds(localCompletedQuests)))) {
-                // On regarde parmis les quetes celles qui n'a : pas de precondition puis on cherche la plus proche
+                // On regarde parmi les quêtes celles qui n'ont pas de précondition, puis on cherche la plus proche
                 for (Quest quest : availableQuests) {
                     if (quest.noPrecond() || quest.hasCompletedPrecond(completedQuestsToIds(localCompletedQuests))) {
-                        // On calcul la distance entre le joueur et la quete
+                        // On calcule la distance entre le joueur et la quête
                         int dist = calculDistance(solPlayer.getCoord(), quest.getCoordinates());
                         if (dist < distMin) {
                             if ((quest.isBoss() && xp >= quest.getExperience()) || !quest.isBoss()) {
@@ -58,10 +58,64 @@ public class SolutionEfficace extends Solution{
         return localCompletedQuests;
     }
 
-    public void speedrun(){
-        ArrayList<Quest> quetesCheminOptimal;
-        int dureeCheminOptimal;
+    public void speedrun() {
+        ArrayList<Quest> optimalQuests = parcours();
+        DurationWrapper optimalDuration = new DurationWrapper(Integer.MAX_VALUE);
 
+        ArrayList<Quest> currentQuests = new ArrayList<>();
+        int currentDuration = 0;
 
+        generateCombinations(new ArrayList<>(scenario.getProvQuests()), currentQuests, 0, currentDuration, optimalQuests, optimalDuration);
+
+        System.out.println("Solution optimale en termes de durée :");
+        for (Quest quest : optimalQuests) {
+            System.out.println(quest);
+        }
+        System.out.println("Durée totale : " + optimalDuration.getDuration() + " unités de temps");
+    }
+
+    private void generateCombinations(ArrayList<Quest> availableQuests, ArrayList<Quest> currentQuests, int index, int currentDuration, ArrayList<Quest> optimalQuests, DurationWrapper optimalDuration) {
+        if (currentDuration >= optimalDuration.getDuration()) {
+            return;
+        }
+
+        if (index == availableQuests.size()) {
+            if (currentDuration < optimalDuration.getDuration()) {
+                optimalDuration.setDuration(currentDuration);
+                optimalQuests.clear();
+                optimalQuests.addAll(currentQuests);
+            }
+            return;
+        }
+
+        Quest currentQuest = availableQuests.get(index);
+
+        generateCombinations(availableQuests, currentQuests, index + 1, currentDuration, optimalQuests, optimalDuration);
+
+        currentQuests.add(currentQuest);
+        currentDuration += currentQuest.getDuration();
+        generateCombinations(availableQuests, currentQuests, index + 1, currentDuration, optimalQuests, optimalDuration);
+        currentQuests.remove(currentQuest);
+        currentDuration -= currentQuest.getDuration();
+
+        // Mettre à jour la durée optimale lorsqu'une solution optimale est trouvée
+        if (currentDuration < optimalDuration.getDuration()) {
+            optimalDuration.setDuration(currentDuration);
+        }
+    }
+    class DurationWrapper {
+        private int duration;
+
+        public DurationWrapper(int duration) {
+            this.duration = duration;
+        }
+
+        public int getDuration() {
+            return duration;
+        }
+
+        public void setDuration(int duration) {
+            this.duration = duration;
+        }
     }
 }
