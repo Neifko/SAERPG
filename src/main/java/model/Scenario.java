@@ -17,7 +17,7 @@ public class Scenario {
 
     /***
      * Récupère la liste des quêtes
-     * @return ArrayList<Quest>
+     * @return ArrayList
      */
     public ArrayList<Quest> getProvQuests(){
         return provQuests;
@@ -64,7 +64,7 @@ public class Scenario {
 
     /**
      * Récupère la liste des quêtes
-     * @return ArrayList<Quest>
+     * @return ArrayList
      */
     public ArrayList<Quest> getQuests() {
         return provQuests;

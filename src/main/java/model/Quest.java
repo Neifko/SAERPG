@@ -155,7 +155,7 @@ public class Quest implements Comparable<Quest> {
     }
     /**
      * Vérifie si une quête a complété les préconditions.
-     * @param precondCompleted Arraylist<Integer>
+     * @param precondCompleted Arraylist
      * @return boolean
      */
     public boolean hasCompletedPrecond(ArrayList<Integer> precondCompleted) {
@@ -183,7 +183,7 @@ public class Quest implements Comparable<Quest> {
     /**
      * Renvoie une représentation sous forme de chaîne de caractères des coordonnées de la quête.
      * (pour faciliter l'ajout de la position au tableaux)
-     * Cette méthode est utilisé Dans VBoxAffichageScenrio via la recherche : " positionColumnEfficace.setCellValueFactory(new PropertyValueFactory<>("formattedCoordinates"));"
+     * Cette méthode est utilisé Dans VBoxAffichageScenrio via la recherche
      * @return String
      */
     public String getFormattedCoordinates() {
