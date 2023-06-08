@@ -84,4 +84,16 @@ public class Solution {
         // Calcul de la distance en utilisant la distance de Manhattan (somme des différences absolues)
         return Math.abs(diffCoordX) + Math.abs(diffCoordY);
     }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
 }

@@ -65,11 +65,6 @@ public class SolutionEfficace extends Solution {
         return localCompletedQuests;
     }
 
-    public class SpeedrunSolution {
-        public ArrayList<Quest> optimalQuests;
-        public int optimalDuration;
-    }
-
     public void speedrun() {
         System.out.println("DEBUT SPEEDRUN");
 

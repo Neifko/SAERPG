@@ -42,4 +42,32 @@ class SolutionTest {
         assertEquals(solution.calculDistance(monJoueur.getCoord(), new int[]{100,0}), 94);
 
     }
+    @Test
+    void doQuest() {
+        Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + "scenario_0.txt"));
+        Player monJoueur = new Player(scenario);
+        Solution solution = new Solution(monJoueur);
+
+        Quest quest = new Quest("2|(3, 1)|((1,),)|1|150|dialoguer avec Kaela la chaman des esprits");
+        solution.doQuest(quest);
+
+        assertEquals(10, solution.getXp());
+        assertEquals(5, solution.getDuration());
+        assertTrue(monJoueur.getStates().contains("+5 : quête 1(total xp : 10)"));
+    }
+
+    @Test
+    void move() {
+        Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + "scenario_0.txt"));
+        Player monJoueur = new Player(scenario);
+        Solution solution = new Solution(monJoueur);
+
+        int[] newCoord = {2, 3};
+        solution.move(newCoord);
+
+        assertArrayEquals(newCoord, monJoueur.getCoord());
+        assertEquals(5, solution.getDuration());
+        assertEquals(5, solution.getDistance());
+        assertTrue(monJoueur.getStates().contains("+5 : déplacement de (0,0) à (2,3)"));
+    }
 }
