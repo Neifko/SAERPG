@@ -112,6 +112,8 @@ public class SolutionEfficace extends Solution {
         // Affichage de la solution optimale
         System.out.println("Solution optimale en termes de durée :");
         for (Quest quest : optimalQuests) {
+            solPlayer.movePlayer(quest.getCoordinates(), calculDistance(solPlayer.getCoord(), quest.getCoordinates()));
+            solPlayer.doPlayerQuest(quest, xp);
             System.out.println(quest);
         }
         System.out.println("Durée totale : " + optimalDurations[numQuests][numQuests] + " unités de temps");

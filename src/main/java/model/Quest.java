@@ -54,7 +54,7 @@ public class Quest implements Comparable<Quest> {
      * @param tab    le tableau dans lequel stocker les informations extraites
      * @return int[] le tableau contenant les informations extraites
      */
-    private int[] extractStringToTab(String string, int[] tab) {
+    protected int[] extractStringToTab(String string, int[] tab) {
         string = string.replace("(", "");
         string = string.replace(")", "");
         string = string.replace(" ", "");

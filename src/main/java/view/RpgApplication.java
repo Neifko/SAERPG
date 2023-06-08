@@ -1,12 +1,8 @@
 package view;
 
-import controller.Controller;
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.VBoxAffichageScenario;
 
 import java.io.File;
 

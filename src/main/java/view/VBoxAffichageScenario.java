@@ -1,4 +1,4 @@
-package model;
+package view;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -7,6 +7,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import model.Quest;
 
 import java.util.List;
 

@@ -1,6 +1,7 @@
 package model;
 
 import iofile.ReadTextFile;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -9,12 +10,19 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SolutionTest {
+    Scenario scenario;
+    Player monJoueur;
+    SolutionEfficace solution;
+    @BeforeEach
+    void setUp(){
+        scenario = ReadTextFile.read(new File("scenarios" + File.separator + "scenario_0.txt"));
+        monJoueur = new Player(scenario);
+        solution = new SolutionEfficace(monJoueur);
+    }
 
     @Test
     void completedQuestsToIds() {
-        Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + "scenario_0.txt"));
-        Player monJoueur = new Player(scenario);
-        SolutionEfficace solution = new SolutionEfficace(monJoueur);
+
 
         int[] resultatAttendu = new int[] {1,2,4,0};
         for (int i=0; i<resultatAttendu.length; i++) {
@@ -25,9 +33,7 @@ class SolutionTest {
 
     @Test
     void calculDistance() {
-        Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + "scenario_0.txt"));
-        Player monJoueur = new Player(scenario);
-        SolutionEfficace solution = new SolutionEfficace(monJoueur);
+
 
         assertEquals(solution.calculDistance(monJoueur.getCoord(), new int[]{9,3}), 12);
         assertEquals(solution.calculDistance(monJoueur.getCoord(), new int[]{3,9}), 12);
@@ -44,9 +50,7 @@ class SolutionTest {
     }
     @Test
     void doQuest() {
-        Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + "scenario_0.txt"));
-        Player monJoueur = new Player(scenario);
-        Solution solution = new Solution(monJoueur);
+
 
         Quest quest = new Quest("2|(3, 1)|((1,),)|1|150|dialoguer avec Kaela la chaman des esprits");
         solution.doQuest(quest);
@@ -58,9 +62,7 @@ class SolutionTest {
 
     @Test
     void move() {
-        Scenario scenario = ReadTextFile.read(new File("scenarios" + File.separator + "scenario_0.txt"));
-        Player monJoueur = new Player(scenario);
-        Solution solution = new Solution(monJoueur);
+
 
         int[] newCoord = {2, 3};
         solution.move(newCoord);

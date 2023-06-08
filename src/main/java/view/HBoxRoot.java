@@ -8,7 +8,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import model.Quest;
 import model.Scenario;
-import model.VBoxAffichageScenario;
 
 public class HBoxRoot extends HBox {
     private static GridPaneRoot gridPaneRoot; // Instance de GridPaneRoot

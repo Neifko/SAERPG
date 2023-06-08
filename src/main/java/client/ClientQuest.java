@@ -21,6 +21,6 @@ public class ClientQuest {
 
 
         solution.speedrun();
-//        monJoueur.showState();
+        monJoueur.showState();
     }
 }
